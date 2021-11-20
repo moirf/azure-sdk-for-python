@@ -279,16 +279,16 @@ function UpdateDocsMsPackages($DocConfigFile, $Mode, $DocsMetadata) {
 
   $outputPackages = @()
   $packageConfig.packages | Foreach-Object -Parallel {
-    $packageName = $package.package_info.name
+    $packageName = $_.package_info.name
     if (!$packageName) { 
-      Write-Host "Keeping package with no name: $($package.package_info)"
-      $outputPackages += $package
+      Write-Host "Keeping package with no name: $($_.package_info)"
+      $outputPackages += $_
       continue
     }
 
-    if ($package.package_info.install_type -ne 'pypi') { 
-      Write-Host "Keeping package with install_type not 'pypi': $($package.package_info.name)"
-      $outputPackages += $package
+    if ($_.package_info.install_type -ne 'pypi') { 
+      Write-Host "Keeping package with install_type not 'pypi': $($_.package_info.name)"
+      $outputPackages += $_
       continue
     }
 
@@ -301,7 +301,7 @@ function UpdateDocsMsPackages($DocConfigFile, $Mode, $DocsMetadata) {
     # be built in Docs CI.
     if ($matchingPublishedPackageArray.Count -eq 0) {
       Write-Host "Keep non-tracked package: $packageName"
-      $outputPackages += $package
+      $outputPackages += $_
       continue
     }
 
@@ -319,7 +319,7 @@ function UpdateDocsMsPackages($DocConfigFile, $Mode, $DocsMetadata) {
 
     if ($Mode -eq 'latest' -and !$matchingPublishedPackage.VersionGA.Trim()) { 
       LogWarning "Metadata is missing GA version for GA package $packageName. Keeping existing package."
-      $outputPackages += $package
+      $outputPackages += $_
       continue
     }
 
@@ -327,31 +327,31 @@ function UpdateDocsMsPackages($DocConfigFile, $Mode, $DocsMetadata) {
     if ($Mode -eq 'preview') {
       if (!$matchingPublishedPackage.VersionPreview.Trim()) { 
         LogWarning "Metadata is missing preview version for preview package $packageName. Keeping existing package."
-        $outputPackages += $package
+        $outputPackages += $_
         continue
       }
       $packageVersion = "==$($matchingPublishedPackage.VersionPreview)"
     }
 
     # If upgrading the package, run basic sanity checks against the package
-    if ($package.package_info.version -ne $packageVersion) {
+    if ($_.package_info.version -ne $packageVersion) {
       Write-Host "New version detected for $packageName ($packageVersion)"
       if (!(ValidatePackage -packageName $packageName -packageVersion $packageVersion -workingDirectory $installValidationFolder)) {
         LogWarning "Package is not valid: $packageName. Keeping old version."
-        $outputPackages += $package
+        $outputPackages += $_
         continue
       }
 
-      $package.package_info = Add-Member `
-        -InputObject $package.package_info `
+      $_.package_info = Add-Member `
+        -InputObject $_.package_info `
         -MemberType NoteProperty `
         -Name 'version' `
         -Value $packageVersion `
         -PassThru `
         -Force 
       if ($PackageSourceOverride) {
-        $package.package_info = Add-Member `
-          -InputObject $package.package_info `
+        $_.package_info = Add-Member `
+          -InputObject $_.package_info `
           -MemberType NoteProperty `
           -Name 'extra_index_url' `
           -Value $PackageSourceOverride `
@@ -361,7 +361,7 @@ function UpdateDocsMsPackages($DocConfigFile, $Mode, $DocsMetadata) {
     }
 
     Write-Host "Keeping tracked package: $packageName."
-    $outputPackages += $package
+    $outputPackages += $_
   }
 
   $outputPackagesHash = @{}
