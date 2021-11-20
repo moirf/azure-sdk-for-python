@@ -293,6 +293,8 @@ stages:
             TargetDocRepoName: ${{parameters.TargetDocRepoName}}
             Language: 'python'
             DailyDocsBuild: true
+            DocValidationImageId: "$(DocValidationImageId)"
+            PackageSourceOverride: 
             SparseCheckoutPaths:
               - docs-ref-services/
               - metadata/
