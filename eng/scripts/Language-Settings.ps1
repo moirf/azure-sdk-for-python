@@ -180,8 +180,9 @@ function DockerValidation($packageName, $packageVersion) {
   docker run --cidfile $ramdomFile -d -e TARGET_PACKAGE=$packageExpression -e EXTRA_INDEX_URL=$PackageSourceOverride -t $ImageId
   while($true) {
     if (!(Test-Path $ramdomFile)) {
-      Start-Sleep -Seconds 2
+      break
     }
+    Start-Sleep -Seconds 2
   }
   # The docker exit codes: https://docs.docker.com/engine/reference/run/#exit-status
   # If the docker failed because of docker itself instead of the application, 
