@@ -176,10 +176,10 @@ function ValidatePackage($packageName, $packageVersion, $workingDirectory) {
 }
 function DockerValidation($packageName, $packageVersion) {
   $packageExpression = "$packageName==$packageVersion"
-  $ramdomFile = (Join-Path ([System.IO.Path]::GetTempPath()) ([System.IO.Path]::GetRandomFileName()))
-  docker run --cidfile $ramdomFile -d -e TARGET_PACKAGE=$packageExpression -e EXTRA_INDEX_URL=$PackageSourceOverride -t $ImageId
+  $ramdomId = [guid]::NewGuid().Guid
+  docker run --name $ramdomId -d -e TARGET_PACKAGE=$packageExpression -e EXTRA_INDEX_URL=$PackageSourceOverride -t $ImageId
   while($true) {
-    if (!(Test-Path $ramdomFile)) {
+    if (((docker inspect $ramdomId) | ConvertFrom-Json).State.Status -eq "exit") {
       break
     }
     Start-Sleep -Seconds 2
