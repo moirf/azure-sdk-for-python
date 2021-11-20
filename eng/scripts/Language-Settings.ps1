@@ -176,7 +176,13 @@ function ValidatePackage($packageName, $packageVersion, $workingDirectory) {
 }
 function DockerValidation($packageName, $packageVersion) {
   $packageExpression = "$packageName==$packageVersion"
-  docker run -d -e TARGET_PACKAGE=$packageExpression -e EXTRA_INDEX_URL=$PackageSourceOverride -t $ImageId
+  $ramdomFile = (Join-Path ([System.IO.Path]::GetTempPath()) ([System.IO.Path]::GetRandomFileName()))
+  docker run --cidfile $ramdomFile -d -e TARGET_PACKAGE=$packageExpression -e EXTRA_INDEX_URL=$PackageSourceOverride -t $ImageId
+  while($true) {
+    if (!(Test-Path $ramdomFile)) {
+      Start-Sleep -Seconds 2
+    }
+  }
   # The docker exit codes: https://docs.docker.com/engine/reference/run/#exit-status
   # If the docker failed because of docker itself instead of the application, 
   # we should skip the validation and keep the packages. 
