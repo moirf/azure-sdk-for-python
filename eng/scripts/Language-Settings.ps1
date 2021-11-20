@@ -179,7 +179,7 @@ function DockerValidation($packageName, $packageVersion) {
   $ramdomId = [guid]::NewGuid().Guid
   docker run --name $ramdomId -d -e TARGET_PACKAGE=$packageExpression -e EXTRA_INDEX_URL=$PackageSourceOverride -t $ImageId
   while($true) {
-    if (((docker inspect $ramdomId) | ConvertFrom-Json).State.Status -eq "exit") {
+    if (((docker inspect $ramdomId) | ConvertFrom-Json).State.Status -eq "exited") {
       break
     }
     Start-Sleep -Seconds 2
