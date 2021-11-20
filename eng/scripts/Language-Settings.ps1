@@ -271,7 +271,7 @@ function UpdateDocsMsPackages($DocConfigFile, $Mode, $DocsMetadata) {
 
 
   $outputPackages = @()
-  foreach ($package in $packageConfig.packages) {
+  $packageConfig.packages | Foreach-Object -Parallel {
     $packageName = $package.package_info.name
     if (!$packageName) { 
       Write-Host "Keeping package with no name: $($package.package_info)"
