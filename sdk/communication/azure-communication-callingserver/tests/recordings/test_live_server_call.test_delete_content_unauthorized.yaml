@@ -13,36 +13,36 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - azsdk-python-communication-identity/1.0.1 Python/3.9.7 (Windows-10-10.0.19043-SP0)
+      - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Thu, 07 Oct 2021 18:28:06 GMT
+      - Wed, 01 Dec 2021 09:24:46 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
     uri: https://sanitized.communication.azure.com/identities?api-version=2021-03-07
   response:
     body:
-      string: '{"identity":{"id":"8:acs:016a7064-0581-40b9-be73-6dde64d69d72_0000000c-fbe4-d738-2740-0948220012a6"}}'
+      string: '{"identity":{"id":"8:acs:ab12b0ea-85ea-4f83-b0b6-84d90209c7c4_0000000e-1531-2ec5-85f4-343a0d0055ed"}}'
     headers:
       api-supported-versions:
       - 2020-07-20-preview2, 2021-02-22-preview1, 2021-03-07, 2021-03-31-preview1,
-        2021-10-31-preview
+        2021-10-31-preview, 2021-11-01
+      content-length:
+      - '101'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Thu, 07 Oct 2021 18:28:05 GMT
+      - Wed, 01 Dec 2021 09:24:46 GMT
       ms-cv:
-      - LfDFKqFphUG7IoPK4re/qQ.0
+      - SXAHD9WuCEmaz8xu8cUs0A.2.0
       request-context:
       - appId=
       strict-transport-security:
       - max-age=2592000
-      transfer-encoding:
-      - chunked
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 40ms
+      - 22ms
     status:
       code: 201
       message: Created
@@ -60,36 +60,36 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - azsdk-python-communication-identity/1.0.1 Python/3.9.7 (Windows-10-10.0.19043-SP0)
+      - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Thu, 07 Oct 2021 18:28:06 GMT
+      - Wed, 01 Dec 2021 09:24:47 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
     uri: https://sanitized.communication.azure.com/identities?api-version=2021-03-07
   response:
     body:
-      string: '{"identity":{"id":"8:acs:016a7064-0581-40b9-be73-6dde64d69d72_0000000c-fbe4-d7e0-edbe-a43a0d00225f"}}'
+      string: '{"identity":{"id":"8:acs:ab12b0ea-85ea-4f83-b0b6-84d90209c7c4_0000000e-1531-323d-4ff7-343a0d006f14"}}'
     headers:
       api-supported-versions:
       - 2020-07-20-preview2, 2021-02-22-preview1, 2021-03-07, 2021-03-31-preview1,
-        2021-10-31-preview
+        2021-10-31-preview, 2021-11-01
+      content-length:
+      - '101'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Thu, 07 Oct 2021 18:28:05 GMT
+      - Wed, 01 Dec 2021 09:24:47 GMT
       ms-cv:
-      - 60uRSH8mBUqA4FH2PjIzJA.0
+      - 3ibiASdk90GBUWf1J4A0aA.2.0
       request-context:
       - appId=
       strict-transport-security:
       - max-age=2592000
-      transfer-encoding:
-      - chunked
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 78ms
+      - 23ms
     status:
       code: 201
       message: Created
@@ -107,11 +107,11 @@ interactions:
       UriToSignWith:
       - https://test.communication.azure.com/v1/objects/0-wus-d10-0172bbc567cf530ac27da36ec99579f3
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.7 (Windows-10-10.0.19043-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       host:
       - test.communication.azure.com
       x-ms-date:
-      - Thu, 07 Oct 2021 18:28:06 GMT
+      - Wed, 01 Dec 2021 09:24:48 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: DELETE
@@ -123,9 +123,9 @@ interactions:
       content-length:
       - '0'
       date:
-      - Thu, 07 Oct 2021 18:28:05 GMT
+      - Wed, 01 Dec 2021 09:24:48 GMT
       server:
-      - Microsoft-HTTPAPI/2.0
+      - Kestrel
       strict-transport-security:
       - max-age=31536000; includeSubDomains
     status:
