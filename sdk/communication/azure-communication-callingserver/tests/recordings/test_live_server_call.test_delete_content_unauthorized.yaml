@@ -15,14 +15,14 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Wed, 01 Dec 2021 09:24:46 GMT
+      - Fri, 03 Dec 2021 11:42:30 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
     uri: https://sanitized.communication.azure.com/identities?api-version=2021-03-07
   response:
     body:
-      string: '{"identity":{"id":"8:acs:ab12b0ea-85ea-4f83-b0b6-84d90209c7c4_0000000e-1531-2ec5-85f4-343a0d0055ed"}}'
+      string: '{"identity": "sanitized"}'
     headers:
       api-supported-versions:
       - 2020-07-20-preview2, 2021-02-22-preview1, 2021-03-07, 2021-03-31-preview1,
@@ -32,9 +32,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Wed, 01 Dec 2021 09:24:46 GMT
+      - Fri, 03 Dec 2021 11:42:31 GMT
       ms-cv:
-      - SXAHD9WuCEmaz8xu8cUs0A.2.0
+      - VbgxPA6JC0isntO5TT9nhg.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -42,7 +42,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 22ms
+      - 23ms
     status:
       code: 201
       message: Created
@@ -62,14 +62,14 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Wed, 01 Dec 2021 09:24:47 GMT
+      - Fri, 03 Dec 2021 11:42:31 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
     uri: https://sanitized.communication.azure.com/identities?api-version=2021-03-07
   response:
     body:
-      string: '{"identity":{"id":"8:acs:ab12b0ea-85ea-4f83-b0b6-84d90209c7c4_0000000e-1531-323d-4ff7-343a0d006f14"}}'
+      string: '{"identity": "sanitized"}'
     headers:
       api-supported-versions:
       - 2020-07-20-preview2, 2021-02-22-preview1, 2021-03-07, 2021-03-31-preview1,
@@ -79,9 +79,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Wed, 01 Dec 2021 09:24:47 GMT
+      - Fri, 03 Dec 2021 11:42:32 GMT
       ms-cv:
-      - 3ibiASdk90GBUWf1J4A0aA.2.0
+      - VLRT+x0gnEiY+Yy3K85u+w.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -89,7 +89,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 23ms
+      - 24ms
     status:
       code: 201
       message: Created
@@ -111,7 +111,7 @@ interactions:
       host:
       - test.communication.azure.com
       x-ms-date:
-      - Wed, 01 Dec 2021 09:24:48 GMT
+      - Fri, 03 Dec 2021 11:42:32 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: DELETE
@@ -123,7 +123,7 @@ interactions:
       content-length:
       - '0'
       date:
-      - Wed, 01 Dec 2021 09:24:48 GMT
+      - Fri, 03 Dec 2021 11:42:34 GMT
       server:
       - Kestrel
       strict-transport-security:

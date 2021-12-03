@@ -33,23 +33,20 @@ class ServerCallTest(CommunicationTestCase):
     def setUp(self):
         super(ServerCallTest, self).setUp()
 
-        self.from_user = CallingServerLiveTestUtils.get_new_user_id(self.connection_str)
-        self.to_user = CallingServerLiveTestUtils.get_new_user_id(self.connection_str)
-
         if self.is_playback():
             self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
             self.to_phone_number =  os.getenv("AZURE_PHONE_NUMBER")
             self.participant_guid = os.getenv("PARTICIPANT_GUID")
             self.invalid_server_call_id = os.getenv("INVALID_SERVER_CALL_ID")
             self.recording_processors.extend([
-                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri"])])
+                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId"])])
         else:
             self.to_phone_number = os.getenv("AZURE_PHONE_NUMBER")
             self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
             self.invalid_server_call_id = os.getenv("INVALID_SERVER_CALL_ID")
             self.participant_guid = os.getenv("PARTICIPANT_GUID")
             self.recording_processors.extend([
-                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri"]),
+                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId"]),
                 ResponseReplacerProcessor(keys=[self._resource_name])])
 
         # create CallingServerClient
@@ -66,6 +63,9 @@ class ServerCallTest(CommunicationTestCase):
             credential,
             http_logging_policy=get_http_logging_policy()
         )
+
+        self.from_user = CallingServerLiveTestUtils.get_new_user_id(self.connection_str)
+        self.to_user = CallingServerLiveTestUtils.get_new_user_id(self.connection_str)
 
     def test_join_play_cancel_hangup_scenario(self):
         # create GroupCalls

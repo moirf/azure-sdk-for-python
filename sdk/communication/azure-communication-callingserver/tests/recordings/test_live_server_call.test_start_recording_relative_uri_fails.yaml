@@ -15,14 +15,14 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Wed, 01 Dec 2021 09:32:08 GMT
+      - Fri, 03 Dec 2021 11:45:06 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
     uri: https://sanitized.communication.azure.com/identities?api-version=2021-03-07
   response:
     body:
-      string: '{"identity":{"id":"8:acs:ab12b0ea-85ea-4f83-b0b6-84d90209c7c4_0000000e-1537-ed4b-35f3-343a0d003610"}}'
+      string: '{"identity": "sanitized"}'
     headers:
       api-supported-versions:
       - 2020-07-20-preview2, 2021-02-22-preview1, 2021-03-07, 2021-03-31-preview1,
@@ -32,9 +32,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Wed, 01 Dec 2021 09:32:09 GMT
+      - Fri, 03 Dec 2021 11:45:07 GMT
       ms-cv:
-      - 6dwzwMjN5U2xU6yG913bTA.2.0
+      - B5NbdsOE5keR3WWBLJOXpw.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -42,7 +42,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 24ms
+      - 23ms
     status:
       code: 201
       message: Created
@@ -62,14 +62,14 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Wed, 01 Dec 2021 09:32:09 GMT
+      - Fri, 03 Dec 2021 11:45:07 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
     uri: https://sanitized.communication.azure.com/identities?api-version=2021-03-07
   response:
     body:
-      string: '{"identity":{"id":"8:acs:ab12b0ea-85ea-4f83-b0b6-84d90209c7c4_0000000e-1537-f2e1-28f4-343a0d002e0e"}}'
+      string: '{"identity": "sanitized"}'
     headers:
       api-supported-versions:
       - 2020-07-20-preview2, 2021-02-22-preview1, 2021-03-07, 2021-03-31-preview1,
@@ -79,9 +79,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Wed, 01 Dec 2021 09:32:09 GMT
+      - Fri, 03 Dec 2021 11:45:08 GMT
       ms-cv:
-      - 2MS6ksxPHEqCLYfX7Bt/dw.2.0
+      - HKAZnBKdBUij0AP8BcdG1g.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -89,12 +89,12 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 23ms
+      - 24ms
     status:
       code: 201
       message: Created
 - request:
-    body: '{"callLocator": {"groupCallId": "e3f2b410-5283-11ec-873a-7fcd714d320c",
+    body: '{"callLocator": {"groupCallId": "9382d810-542d-11ec-8ae0-9f877a89c2db",
       "kind": "groupCallLocator"}, "recordingStateCallbackUri": "/not/absolute/uri"}'
     headers:
       Accept:
@@ -115,20 +115,19 @@ interactions:
     uri: https://sanitized.communication.azure.com/calling/recordings?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"error": {"code": "8559", "message": "Only one app of a single dialout
-        app is supported in a call."}}'
+      string: '{"recordingId": "eyJQbGF0Zm9ybUVuZHBvaW50SWQiOiI3ZjIwMTMwMC0xMTY5LTQzNzEtOTE0Yy01ZjQyZDBkYWM3YzciLCJSZXNvdXJjZVNwZWNpZmljSWQiOiJkM2NmZWQ5OC0zYjViLTRkMTQtOGE0My02MWJlN2Q1NDU1MDIifQ"}'
     headers:
       content-length:
-      - '98'
+      - '180'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Wed, 01 Dec 2021 09:32:15 GMT
+      - Fri, 03 Dec 2021 11:45:19 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 59fa9d6b-232e-48ca-a290-d82610da184b
+      - 85ceeec0-f289-4dc7-bbc8-402be8ea8fcc
     status:
-      code: 400
-      message: Bad Request
+      code: 200
+      message: OK
 version: 1
