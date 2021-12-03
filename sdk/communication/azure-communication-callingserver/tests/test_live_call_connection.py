@@ -32,21 +32,18 @@ class CallConnectionTest(CommunicationTestCase):
     def setUp(self):
         super(CallConnectionTest, self).setUp()
 
-        self.from_user = CallingServerLiveTestUtils.get_new_user_id(self.connection_str)
-        self.to_user = CallingServerLiveTestUtils.get_new_user_id(self.connection_str)
-
         if self.is_playback():
             self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
             self.to_phone_number =  os.getenv("AZURE_PHONE_NUMBER")
             self.partcipant_guid = os.getenv("PARTICIPANT_GUID")
             self.recording_processors.extend([
-                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri"])])
+                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId"])])
         else:
             self.to_phone_number = os.getenv("AZURE_PHONE_NUMBER")
             self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
             self.partcipant_guid = os.getenv("PARTICIPANT_GUID")
             self.recording_processors.extend([
-                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri"]),
+                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId"]),
                 ResponseReplacerProcessor(keys=[self._resource_name])])
 
         # create CallingServerClient
@@ -63,6 +60,9 @@ class CallConnectionTest(CommunicationTestCase):
             credential,
             http_logging_policy=get_http_logging_policy()
         )
+
+        self.from_user = CallingServerLiveTestUtils.get_new_user_id(self.connection_str)
+        self.to_user = CallingServerLiveTestUtils.get_new_user_id(self.connection_str)
 
     def test_create_play_cancel_hangup_scenario(self):
         # create call option and establish a call
@@ -302,7 +302,7 @@ class CallConnectionTest(CommunicationTestCase):
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             OperationContext = str(uuid.uuid4())
             transfer_call_result = call_connection.transfer_to_call(
-                target_call_connection_id= os.getenv("TARGET_CALL_CONNECTION_ID"),
+                target_call_connection_id = os.getenv("TARGET_CALL_CONNECTION_ID"),
                 user_to_user_information='test information',
                 operation_context=OperationContext
                 )

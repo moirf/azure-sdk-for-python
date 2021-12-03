@@ -15,14 +15,14 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Wed, 01 Dec 2021 16:47:38 GMT
+      - Fri, 03 Dec 2021 15:09:59 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
     uri: https://sanitized.communication.azure.com/identities?api-version=2021-03-07
   response:
     body:
-      string: '{"identity":{"id":"8:acs:ab12b0ea-85ea-4f83-b0b6-84d90209c7c4_0000000e-16c6-a7f2-1000-343a0d00587f"}}'
+      string: '{"identity": "sanitized"}'
     headers:
       api-supported-versions:
       - 2020-07-20-preview2, 2021-02-22-preview1, 2021-03-07, 2021-03-31-preview1,
@@ -32,9 +32,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Wed, 01 Dec 2021 16:47:39 GMT
+      - Fri, 03 Dec 2021 15:10:00 GMT
       ms-cv:
-      - l3JSS/LDqkOzSuFQr/xL0Q.2.0
+      - 9ACDdvxK4EK0AGzqsNn0XQ.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -42,7 +42,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 24ms
+      - 23ms
     status:
       code: 201
       message: Created
@@ -62,14 +62,14 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Wed, 01 Dec 2021 16:47:40 GMT
+      - Fri, 03 Dec 2021 15:10:00 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
     uri: https://sanitized.communication.azure.com/identities?api-version=2021-03-07
   response:
     body:
-      string: '{"identity":{"id":"8:acs:ab12b0ea-85ea-4f83-b0b6-84d90209c7c4_0000000e-16c6-ad5e-1000-343a0d005880"}}'
+      string: '{"identity": "sanitized"}'
     headers:
       api-supported-versions:
       - 2020-07-20-preview2, 2021-02-22-preview1, 2021-03-07, 2021-03-31-preview1,
@@ -79,9 +79,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Wed, 01 Dec 2021 16:47:40 GMT
+      - Fri, 03 Dec 2021 15:10:01 GMT
       ms-cv:
-      - 0YMw/E7drUOEkpgBCd8qGg.2.0
+      - /7YnnOFVUESM/9eBYNhebg.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -89,7 +89,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 23ms
+      - 27ms
     status:
       code: 201
       message: Created
@@ -116,24 +116,24 @@ interactions:
     uri: https://sanitized.communication.azure.com/calling/callConnections?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"callConnectionId": "b81f1300-d065-4c51-8d38-9db6d9c05d43"}'
+      string: '{"callConnectionId": "aa201300-d668-4874-8038-58501112c129"}'
     headers:
       content-length:
       - '59'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Wed, 01 Dec 2021 16:47:45 GMT
+      - Fri, 03 Dec 2021 15:10:03 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 4d9ee60e-70b8-404c-a5ba-264c0cfab0fe
+      - 1f23834f-5926-485f-bdeb-ac1f18bb9ba9
     status:
       code: 201
       message: Created
 - request:
-    body: '{"participant": {"communicationUser": {"id": "8:acs:ab12b0ea-85ea-4f83-b0b6-84d90209c7c4_0000000e-16a2-b59f-3ef0-8b3a0d002e50"}},
-      "operationContext": "3d9c78f8-1c19-4056-9c05-62e5ff75d619"}'
+    body: '{"participant": {"communicationUser": "sanitized"}, "operationContext":
+      "0137c9aa-b555-422d-bfe3-9377ccdb82ef"}'
     headers:
       Accept:
       - application/json
@@ -150,25 +150,25 @@ interactions:
       x-ms-host:
       - acstelephonyportaltesting.communication.azure.com
     method: POST
-    uri: https://sanitized.communication.azure.com/calling/callConnections/b81f1300-d065-4c51-8d38-9db6d9c05d43/participants?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling/callConnections/aa201300-d668-4874-8038-58501112c129/participants?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"error": {"code": "8501", "message": "Action is invalid when call
-        is not in Established state"}}'
+      string: '{"operationId": "491c1f04-2e5e-403f-a502-d61d70666956", "status": "running",
+        "operationContext": "0137c9aa-b555-422d-bfe3-9377ccdb82ef"}'
     headers:
       content-length:
-      - '93'
+      - '131'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Wed, 01 Dec 2021 16:47:55 GMT
+      - Fri, 03 Dec 2021 15:10:14 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - b08e5c99-0ea0-4017-92ea-0ae78948eee5
+      - 87e804b7-e376-4b14-bbcf-dc46e38c8b85
     status:
-      code: 400
-      message: Bad Request
+      code: 202
+      message: Accepted
 - request:
     body: null
     headers:
@@ -185,7 +185,7 @@ interactions:
       x-ms-host:
       - acstelephonyportaltesting.communication.azure.com
     method: POST
-    uri: https://sanitized.communication.azure.com/calling/callConnections/b81f1300-d065-4c51-8d38-9db6d9c05d43/:hangup?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling/callConnections/aa201300-d668-4874-8038-58501112c129/:hangup?api-version=2021-11-15-preview
   response:
     body:
       string: ''
@@ -193,11 +193,11 @@ interactions:
       content-length:
       - '0'
       date:
-      - Wed, 01 Dec 2021 16:48:10 GMT
+      - Fri, 03 Dec 2021 15:10:24 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - ff131192-4072-43db-a922-f2c115545ab2
+      - 27bfe868-0ffe-4f05-9633-44a1d277fbf2
     status:
       code: 202
       message: Accepted
