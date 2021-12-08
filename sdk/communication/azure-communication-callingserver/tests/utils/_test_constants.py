@@ -33,7 +33,10 @@ IncomingRequestSecret = "helloworld"
 AppBaseUrl = "https://dummy.ngrok.io"
 AppCallbackUrl = "{}/api/incident/callback?SecretKey={}".format(AppBaseUrl,quote(IncomingRequestSecret))
 AudioFileName = "sample-message.wav"
-AudioFileUrl = "{}/audio/{}".format(AppBaseUrl,AudioFileName)
+AUDIO_FILE_URL = os.getenv(
+    "AUDIO_FILE_URL",
+    "{}/audio/{}".format(AppBaseUrl,AudioFileName)
+    )
 
 # Common
 PHONE_NUMBER = "+14255550123"

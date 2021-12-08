@@ -24,7 +24,7 @@ from _shared.testcase import (
 )
 from devtools_testutils import is_live
 from _shared.utils import get_http_logging_policy
-from utils._live_test_utils import CallingServerLiveTestUtils
+from utils._live_test_utils import CallingServerLiveTestUtils, RequestReplacerProcessor
 from utils._test_mock_utils import FakeTokenCredential
 
 class CallConnectionTest(CommunicationTestCase):
@@ -33,18 +33,19 @@ class CallConnectionTest(CommunicationTestCase):
         super(CallConnectionTest, self).setUp()
 
         if self.is_playback():
-            self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
-            self.to_phone_number =  os.getenv("AZURE_PHONE_NUMBER")
-            self.partcipant_guid = os.getenv("PARTICIPANT_GUID")
+            self.from_phone_number = "+15551234567"
+            self.to_phone_number = "+15551234567"
             self.recording_processors.extend([
-                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId"])])
+                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId", "callConnectionId", "phoneNumber"])])
         else:
             self.to_phone_number = os.getenv("AZURE_PHONE_NUMBER")
             self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
             self.partcipant_guid = os.getenv("PARTICIPANT_GUID")
             self.recording_processors.extend([
-                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId"]),
-                ResponseReplacerProcessor(keys=[self._resource_name])])
+                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId", "callConnectionId", "phoneNumber"]),
+                BodyReplacerProcessor(keys=["audioFileUri"], replacement = "https://dummy.ngrok.io/audio/sample-message.wav"),
+                ResponseReplacerProcessor(keys=[self._resource_name]),
+                RequestReplacerProcessor()])
 
         # create CallingServerClient
         endpoint, _ = parse_connection_str(self.connection_str)
@@ -77,7 +78,8 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-            # get_call
+            # Get Call
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             get_call_result = call_connection.get_call()
             assert get_call_result.call_connection_id is not None
 
@@ -86,7 +88,7 @@ class CallConnectionTest(CommunicationTestCase):
             OperationContext = str(uuid.uuid4())
             AudioFileId = str(uuid.uuid4())
             play_audio_result = call_connection.play_audio(
-                CONST.AudioFileUrl,
+                CONST.AUDIO_FILE_URL,
                 is_looped = True,
                 audio_file_id = AudioFileId,
                 operation_context = OperationContext
@@ -119,7 +121,6 @@ class CallConnectionTest(CommunicationTestCase):
         try:
             # Add Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
-            OperationContext = str(uuid.uuid4())
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
             add_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_participant)
@@ -127,11 +128,9 @@ class CallConnectionTest(CommunicationTestCase):
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)  
            
             #list_participants 
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             list_participants_result = call_connection.list_participants()
-            assert len(list_participants_result) > 1
-            # get_participant
-            get_participant_result = call_connection.get_participant(participant=CommunicationUserIdentifier(added_participant))
-            assert get_participant_result.participant_id is not None
+            assert len(list_participants_result) > 2
 
             # Remove Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
@@ -143,10 +142,8 @@ class CallConnectionTest(CommunicationTestCase):
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.hang_up()
 
-    def test_play_audio_to_participant(self):
-        # create GroupCalls
-        group_id = CallingServerLiveTestUtils.get_group_id("test_play_audio_to_participant")
-
+    def test_test_create_add_play_audio_to_participant_remove_hangup_scenario(self):
+        # create option and establish a call
         call_connection = self.callingserver_client.create_call_connection(
                     source=CommunicationUserIdentifier(self.from_user),
                     targets=[PhoneNumberIdentifier(self.to_phone_number)],
@@ -158,8 +155,7 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id("0000000e-0bc2-181e-3ef0-8b3a0d009fd9")
-            participant = CommunicationUserIdentifier(added_participant)
+            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
 
            # Add Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
@@ -169,21 +165,26 @@ class CallConnectionTest(CommunicationTestCase):
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)   
 
-            # play_audio_to_participant #not working currently
+            # Play Audio To Participant
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             play_audio_to_participant_result = call_connection.play_audio_to_participant(
              participant=CommunicationUserIdentifier(added_participant), 
-             audio_url = CONST.AudioFileUrl,
+             audio_url = CONST.AUDIO_FILE_URL,
              is_looped=True,
              audio_file_id=str(uuid.uuid4()))    
              
             assert play_audio_to_participant_result.operation_id is not None   
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
 
-            # cancel_participant_media_operation not working, error is (8523) Participant not being played audio
-            cancel_participant_media_operation_result = call_connection.cancel_participant_media_operation(
-                participant=participant,
+            # Cancel Participant Media Operation 
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            call_connection.cancel_participant_media_operation(
+                participant=CommunicationUserIdentifier(added_participant),
                 media_operation_id=play_audio_to_participant_result.operation_id
             )
+
+            # Remove Participant
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            call_connection.remove_participant(CommunicationUserIdentifier(added_participant))
 
         except Exception as ex:
             print( str(ex))
@@ -205,36 +206,37 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-          # Add Participant
+           # Add Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             OperationContext = str(uuid.uuid4())
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
             add_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_participant),
-                alternate_caller_id=None,
                 operation_context=OperationContext
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)
-            
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
 
             # Mute Participant
-            mute_participant = call_connection.mute_participant(CommunicationUserIdentifier(added_participant))
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            call_connection.mute_participant(CommunicationUserIdentifier(added_participant))
 
+            # Get Participant
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             muted_participant = call_connection.get_participant(CommunicationUserIdentifier(added_participant))
             assert muted_participant.is_muted == True
 
+            # Unmute Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            call_connection.unmute_participant(CommunicationUserIdentifier(added_participant))
 
-            # UnMute Participant
-            unmute_participant = call_connection.unmute_participant(CommunicationUserIdentifier(added_participant))
+            # Get Participant
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             unmuted_participant = call_connection.get_participant(CommunicationUserIdentifier(added_participant))
             assert unmuted_participant.is_muted == False
-
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
            
             # Remove Participant
-            call_connection.remove_participant(added_participant)
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            call_connection.remove_participant(CommunicationUserIdentifier(added_participant))
         except Exception as ex:
             print(ex)
         finally:
@@ -251,31 +253,32 @@ class CallConnectionTest(CommunicationTestCase):
                     requested_media_types=[CallMediaType.AUDIO],
                     requested_call_events=[CallingEventSubscriptionType.PARTICIPANTS_UPDATED],
                     alternate_caller_id=self.from_phone_number
-                    )   
+                    ) 
+
+        CallingServerLiveTestUtils.validate_callconnection(call_connection)
+
         try:
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             OperationContext = str(uuid.uuid4())
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
             participant=CommunicationUserIdentifier(added_participant)
             add_participant_result = call_connection.add_participant(
-                participant=CommunicationUserIdentifier(added_participant),
-                alternate_caller_id=None,
+                participant=participant,
                 operation_context=OperationContext
                 )
             CallingServerLiveTestUtils.validate_add_participant(
                 add_participant_result)
 
+            # Hold Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            call_connection.hold_participant_meeting_audio(participant)
 
-            # hold_participant_meeting_audio
-            hold_result = call_connection.hold_participant_meeting_audio(participant)
-
+            # Resume Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
-
-            # resume_participant_meeting_audio
-            resume_result = call_connection.resume_participant_meeting_audio(participant)
+            call_connection.resume_participant_meeting_audio(participant)
 
             # Remove Participant
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.remove_participant(participant)
         except Exception as ex:
             print(ex)
@@ -327,18 +330,16 @@ class CallConnectionTest(CommunicationTestCase):
             # Transfer to participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            target_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
             transfer_call_result = call_connection.transfer_to_participant(
-                target_participant=CommunicationUserIdentifier(added_participant),
+                target_participant=CommunicationUserIdentifier(target_participant),
                 user_to_user_information='test information',
                 operation_context=OperationContext
                 )
             CallingServerLiveTestUtils.validate_transfer_call_participant(transfer_call_result)
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
         except Exception as ex:
             print(str(ex))
-
 
     def test_create_delete_keep_alive_scenario(self):
         # Establish a call
@@ -350,14 +351,18 @@ class CallConnectionTest(CommunicationTestCase):
                     requested_call_events=[CallingEventSubscriptionType.PARTICIPANTS_UPDATED],
                     alternate_caller_id=self.from_phone_number
                     )   
-        CallingServerLiveTestUtils.sleep_if_in_live_mode()
 
-        # check keep_alive
+        CallingServerLiveTestUtils.validate_callconnection(call_connection)
+
+        # Check Keep Alive
+        CallingServerLiveTestUtils.sleep_if_in_live_mode()
         call_connection.keep_alive()
 
         # Delete the call
+        CallingServerLiveTestUtils.sleep_if_in_live_mode()
         call_connection.delete()   # notice that call got disconnected
         try:
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.keep_alive()
         except Exception as ex:
             assert '8522' in str(ex)

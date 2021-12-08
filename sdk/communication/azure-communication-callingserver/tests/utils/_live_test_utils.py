@@ -32,6 +32,8 @@ class RequestReplacerProcessor(RecordingProcessor):
     def process_request(self, request):
         request.uri = re.sub('/calling/serverCalls/([^/?]+)',
             '/calling/serverCalls/{}'.format(self._replacement), request.uri)
+        request.uri = re.sub('/calling/callConnections/([^/?]+)',
+            '/calling/callConnections/{}'.format(self._replacement), request.uri)
         return request
 
 class CallingServerLiveTestUtils:
@@ -53,11 +55,13 @@ class CallingServerLiveTestUtils:
         assert play_audio_result.status == CallingOperationStatus.RUNNING
 
     @staticmethod
+    def validate_transfer_call_participant(transfer_call_result):
+        assert transfer_call_result is not None
+
+    @staticmethod
     def validate_add_participant(add_participant_result):
         # type: (AddParticipantResult) -> None
         assert add_participant_result is not None
-        assert add_participant_result.participant_id is not None
-        assert len(add_participant_result.participant_id) != 0
 
     @staticmethod
     def cancel_all_media_operations_for_group_call(call_connections):
