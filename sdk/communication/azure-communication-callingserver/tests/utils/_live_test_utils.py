@@ -21,7 +21,8 @@ from azure.communication.callingserver import (
     CallingOperationStatus,
     CallMediaType,
     CallingEventSubscriptionType,
-    GroupCallLocator
+    GroupCallLocator,
+    TransferCallResult
     )
 
 class RequestReplacerProcessor(RecordingProcessor):
@@ -34,6 +35,9 @@ class RequestReplacerProcessor(RecordingProcessor):
             '/calling/serverCalls/{}'.format(self._replacement), request.uri)
         request.uri = re.sub('/calling/callConnections/([^/?]+)',
             '/calling/callConnections/{}'.format(self._replacement), request.uri)
+        request.uri = re.sub('/calling/recordings/([^/?]+)',
+            '/calling/recordings/{}'.format(self._replacement), request.uri)
+
         return request
 
 class CallingServerLiveTestUtils:
@@ -46,6 +50,11 @@ class CallingServerLiveTestUtils:
         assert len(call_connection.call_connection_id) != 0
 
     @staticmethod
+    def validate_group_call_connection(group_call_connection):
+        # type: (List[CallConnection]) -> None
+        assert group_call_connection is not None
+
+    @staticmethod
     def validate_play_audio_result(play_audio_result):
         # type: (PlayAudioResult) -> None
         assert play_audio_result is not None
@@ -56,6 +65,7 @@ class CallingServerLiveTestUtils:
 
     @staticmethod
     def validate_transfer_call_participant(transfer_call_result):
+        # type: (TransferCallResult) -> None
         assert transfer_call_result is not None
 
     @staticmethod

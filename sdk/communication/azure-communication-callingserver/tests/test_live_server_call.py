@@ -34,20 +34,21 @@ class ServerCallTest(CommunicationTestCase):
         super(ServerCallTest, self).setUp()
 
         if self.is_playback():
-            self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
-            self.to_phone_number =  os.getenv("AZURE_PHONE_NUMBER")
-            self.participant_guid = os.getenv("PARTICIPANT_GUID")
-            self.invalid_server_call_id = os.getenv("INVALID_SERVER_CALL_ID")
+            self.from_phone_number = "+15551234567"
+            self.to_phone_number = "+15551234567"
+            self.invalid_server_call_id = "aHR0cHM6Ly9XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
             self.recording_processors.extend([
-                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId"])])
+                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId", "callConnectionId", "phoneNumber", "groupCallId", "recordingId", "serverCallId"])])
         else:
             self.to_phone_number = os.getenv("AZURE_PHONE_NUMBER")
             self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
             self.invalid_server_call_id = os.getenv("INVALID_SERVER_CALL_ID")
             self.participant_guid = os.getenv("PARTICIPANT_GUID")
             self.recording_processors.extend([
-                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId"]),
-                ResponseReplacerProcessor(keys=[self._resource_name])])
+                BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId", "callConnectionId", "phoneNumber", "groupCallId", "recordingId", "serverCallId"]),
+                BodyReplacerProcessor(keys=["audioFileUri"], replacement = "https://dummy.ngrok.io/audio/sample-message.wav"),
+                ResponseReplacerProcessor(keys=[self._resource_name]),
+                RequestReplacerProcessor()])
 
         # create CallingServerClient
         endpoint, _ = parse_connection_str(self.connection_str)
@@ -71,11 +72,6 @@ class ServerCallTest(CommunicationTestCase):
         # create GroupCalls
         group_id = CallingServerLiveTestUtils.get_group_id("test_join_play_cancel_hangup_scenario")
 
-        if self.is_live:
-            self.recording_processors.extend([
-            RequestReplacerProcessor(keys=group_id,
-                replacement=CallingServerLiveTestUtils.get_playback_group_id("test_join_play_cancel_hangup_scenario"))])
-
         call_connections = CallingServerLiveTestUtils.create_group_calls(
             self.callingserver_client,
             group_id,
@@ -84,25 +80,22 @@ class ServerCallTest(CommunicationTestCase):
             CONST.CALLBACK_URI
             )
 
+        CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
+
         try:
             # Play Audio
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             OperationContext = str(uuid.uuid4())
-
             play_audio_result = self.callingserver_client.play_audio(
                 GroupCallLocator(group_id),
-                CONST.AudioFileUrl,
+                CONST.AUDIO_FILE_URL,
                 is_looped = True,
                 audio_file_id = str(uuid.uuid4()),
                 callback_uri = CONST.AppCallbackUrl,
                 operation_context = OperationContext
                 )
-            CallingServerLiveTestUtils.validate_play_audio_result(play_audio_result)
 
-            # cancel_media_operation not working
-            # self.callingserver_client.cancel_media_operation(
-            #      call_locator=GroupCallLocator(group_id), 
-            #      media_operation_id=play_audio_result.operation_id )
+            CallingServerLiveTestUtils.validate_play_audio_result(play_audio_result)
 
             # Cancel Prompt Audio
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
@@ -118,11 +111,6 @@ class ServerCallTest(CommunicationTestCase):
         # create GroupCalls
         group_id = CallingServerLiveTestUtils.get_group_id("test_create_add_remove_hangup_scenario")
 
-        if self.is_live:
-            self.recording_processors.extend([
-            RequestReplacerProcessor(keys=group_id,
-                replacement=CallingServerLiveTestUtils.get_playback_group_id("test_create_add_remove_hangup_scenario"))])
-
         call_connections = CallingServerLiveTestUtils.create_group_calls(
             self.callingserver_client,
             group_id,
@@ -130,6 +118,8 @@ class ServerCallTest(CommunicationTestCase):
             self.to_user,
             CONST.CALLBACK_URI
             )
+
+        CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
 
         try:
             # Add Participant
@@ -145,26 +135,27 @@ class ServerCallTest(CommunicationTestCase):
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)
 
-            # play_audio_to_participant
+            # Play Audio To Participant
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             play_audio_to_participant_result = self.callingserver_client.play_audio_to_participant(
                 call_locator=GroupCallLocator(group_id),
                 participant=CommunicationUserIdentifier(added_participant), 
-                audio_url = CONST.AudioFileUrl,
+                audio_url = CONST.AUDIO_FILE_URL,
                 is_looped=True,
                 audio_file_id=str(uuid.uuid4()),
                 callback_uri=CONST.AppCallbackUrl)
 
             assert play_audio_to_participant_result.operation_id is not None
 
-            # cancel_participant_media_operation not working
-            # cancel_participant_media_operation_result = self.callingserver_client.cancel_participant_media_operation(
-            #     call_locator=GroupCallLocator(group_id),
-            #     participant=CommunicationUserIdentifier(added_participant),
-            #     media_operation_id=play_audio_to_participant_result.operation_id
-            # )
+            # Cancel Participant Media Operation 
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            self.callingserver_client.cancel_participant_media_operation(
+                call_locator=GroupCallLocator(group_id),
+                participant=CommunicationUserIdentifier(added_participant),
+                media_operation_id=play_audio_to_participant_result.operation_id
+            )
 
             # Remove Participant
-            participant_id=add_participant_result.participant_id
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             self.callingserver_client.remove_participant(
                 GroupCallLocator(group_id),
@@ -178,9 +169,9 @@ class ServerCallTest(CommunicationTestCase):
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             CallingServerLiveTestUtils.clean_up_connections(call_connections)
 
-    def test_add_participant_using_get_call_connection(self):
+    def test_create_add_get_remove_participant_hangup_scenario(self):
         # create GroupCalls
-        group_id = CallingServerLiveTestUtils.get_group_id("test_add_participant_using_get_call_connection")
+        group_id = CallingServerLiveTestUtils.get_group_id("test_create_add_get_remove_participant_hangup_scenario")
 
         call_connections = CallingServerLiveTestUtils.create_group_calls(
             self.callingserver_client,
@@ -190,28 +181,43 @@ class ServerCallTest(CommunicationTestCase):
             CONST.CALLBACK_URI
             )
 
-        call_connection = self.callingserver_client.get_call_connection(call_connections[0].call_connection_id)
+        CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
 
         try:
+            # Get Call Connection
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            get_call_connection = self.callingserver_client.get_call_connection(call_connections[0].call_connection_id)
+            assert get_call_connection.call_connection_id is not None
+            
+            # Add Participant
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            OperationContext = str(uuid.uuid4())
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.participant_guid)
-
-            add_participant_result = call_connection.add_participant( 
+            add_participant_result = self.callingserver_client.add_participant(
+                call_locator=GroupCallLocator(group_id),
                 participant=CommunicationUserIdentifier(added_participant),
+                callback_uri=CONST.AppCallbackUrl,
+                alternate_caller_id=None,
+                operation_context=OperationContext
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)
 
+            # Get Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
-
-            # Get all Participant not working due to deserialization issue
-            all_participants = self.callingserver_client.list_participants(GroupCallLocator(group_id))  
-            assert len(all_participants)  > 0
-
-            # get_participant is working but having deserialization issue
             get_participant_result = self.callingserver_client.get_participant(GroupCallLocator(group_id), CommunicationUserIdentifier(added_participant))
             assert get_participant_result.participant_id is not None
+
+            # Get all Participants
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            get_all_participants = self.callingserver_client.list_participants(GroupCallLocator(group_id))  
+            assert len(get_all_participants)  > 2
        
-            CallingServerLiveTestUtils.cancel_all_media_operations_for_group_call(call_connections)
+            # Remove Participant
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            self.callingserver_client.remove_participant(
+                GroupCallLocator(group_id),
+                CommunicationUserIdentifier(added_participant)
+                )
         except Exception as ex:
             print(str(ex))
         finally:
@@ -221,11 +227,6 @@ class ServerCallTest(CommunicationTestCase):
 
     def test_run_all_client_functions(self):
         group_id = CallingServerLiveTestUtils.get_group_id("test_run_all_client_functions")
-
-        if self.is_live:
-            self.recording_processors.extend([
-            RequestReplacerProcessor(keys=group_id,
-                replacement=CallingServerLiveTestUtils.get_playback_group_id("test_run_all_client_functions"))])
 
         call_connections = CallingServerLiveTestUtils.create_group_calls(
             self.callingserver_client,
