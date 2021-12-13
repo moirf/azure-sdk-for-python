@@ -4,6 +4,7 @@
 # license information.
 # --------------------------------------------------------------------------
 
+import os
 import time, uuid
 import re
 from typing import List
@@ -21,7 +22,8 @@ from azure.communication.callingserver import (
     CallingOperationStatus,
     CallMediaType,
     CallingEventSubscriptionType,
-    GroupCallLocator
+    GroupCallLocator,
+    TransferCallResult
     )
 
 class RequestReplacerProcessor(RecordingProcessor):
@@ -32,6 +34,13 @@ class RequestReplacerProcessor(RecordingProcessor):
     def process_request(self, request):
         request.uri = re.sub('/calling/serverCalls/([^/?]+)',
             '/calling/serverCalls/{}'.format(self._replacement), request.uri)
+        request.uri = re.sub('/calling/callConnections/([^/?]+)',
+            '/calling/callConnections/{}'.format(self._replacement), request.uri)
+        request.uri = re.sub('/calling/recordings/([^/?]+)',
+            '/calling/recordings/{}'.format(self._replacement), request.uri)
+        request.uri = re.sub('/v1/objects/([^/?]+)',
+            '/v1/objects/{}'.format(self._replacement), request.uri)
+
         return request
 
 class CallingServerLiveTestUtils:
@@ -44,6 +53,11 @@ class CallingServerLiveTestUtils:
         assert len(call_connection.call_connection_id) != 0
 
     @staticmethod
+    def validate_group_call_connection(group_call_connection):
+        # type: (List[CallConnection]) -> None
+        assert group_call_connection is not None
+
+    @staticmethod
     def validate_play_audio_result(play_audio_result):
         # type: (PlayAudioResult) -> None
         assert play_audio_result is not None
@@ -53,13 +67,15 @@ class CallingServerLiveTestUtils:
         assert play_audio_result.status == CallingOperationStatus.RUNNING
 
     @staticmethod
+    def validate_transfer_call_participant(transfer_call_result):
+        # type: (TransferCallResult) -> None
+        assert transfer_call_result is not None
+
+    @staticmethod
     def validate_add_participant(add_participant_result):
         # type: (AddParticipantResult) -> None
         assert add_participant_result is not None
         assert add_participant_result.operation_id is not None
-        assert len(add_participant_result.operation_id) != 0
-        assert add_participant_result.status is not None
-        assert add_participant_result.status == CallingOperationStatus.RUNNING
 
     @staticmethod
     def cancel_all_media_operations_for_group_call(call_connections):
@@ -171,8 +187,17 @@ class CallingServerLiveTestUtils:
     @staticmethod
     # For recording tests, a new delete url should be generated.
     def get_delete_url():
-        return "https://storage.asm.skype.com/v1/objects/0-wus-d10-0172bbc567cf530ac27da36ec99579f3"
+        if is_live():
+            DELETE_END_POINT = os.getenv(
+                "DELETE_END_POINT"
+            )
+            return DELETE_END_POINT
+        else: 
+            return "https://us-storage.asm.skype.com/v1/objects/sanitized"
 
     @staticmethod
     def get_invalid_delete_url():
-        return "https://storage.asm.skype.com/v1/objects/0-eus-d3-00000000000000000000000000000000"
+        if is_live():
+            return "https://us-storage.asm.skype.com/v1/objects/0-wus-d10-00000000000000000000000000000000"
+        else: 
+            return "https://us-storage.asm.skype.com/v1/objects/sanitized"
