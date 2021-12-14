@@ -13,7 +13,8 @@ from azure.communication.callingserver import (
     PhoneNumberIdentifier,
     CallMediaType,
     CallingEventSubscriptionType,
-    CommunicationUserIdentifier
+    CommunicationUserIdentifier,
+    AudioRoutingMode
     )
 from azure.communication.callingserver._shared.utils import parse_connection_str
 from azure.identity import DefaultAzureCredential
@@ -41,6 +42,7 @@ class CallConnectionTest(CommunicationTestCase):
             self.to_phone_number = os.getenv("AZURE_PHONE_NUMBER")
             self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
             self.partcipant_guid = os.getenv("PARTICIPANT_GUID")
+            self.another_partcipant_guid = os.getenv("ANOTHER_PARTICIPANT_GUID")
             self.recording_processors.extend([
                 BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId", "callConnectionId", "phoneNumber", "serverCallId"]),
                 BodyReplacerProcessor(keys=["audioFileUri"], replacement = "https://dummy.ngrok.io/audio/sample-message.wav"),
@@ -364,3 +366,81 @@ class CallConnectionTest(CommunicationTestCase):
             call_connection.keep_alive()
         except Exception as ex:
             assert '8522' in str(ex)
+
+    @pytest.mark.skip("Skip test as it is not working now")
+    def test_create_add_participant_audio_routing_scenario(self):
+        # Establish a call
+        call_connection = self.callingserver_client.create_call_connection(
+                    source=CommunicationUserIdentifier(self.from_user),
+                    targets=[PhoneNumberIdentifier(self.to_phone_number)],
+                    callback_uri=CONST.AppCallbackUrl,
+                    requested_media_types=[CallMediaType.AUDIO],
+                    requested_call_events=[CallingEventSubscriptionType.PARTICIPANTS_UPDATED],
+                    alternate_caller_id=PhoneNumberIdentifier(self.from_phone_number)
+                    )   
+
+        CallingServerLiveTestUtils.validate_callconnection(call_connection)
+
+        CallingServerLiveTestUtils.sleep_if_in_live_mode()
+
+        try:
+            # Add Participant
+            OperationContext = str(uuid.uuid4())
+            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            add_participant_result = call_connection.add_participant(
+                participant=CommunicationUserIdentifier(added_participant),
+                operation_context=OperationContext
+                )
+
+            CallingServerLiveTestUtils.validate_add_participant(add_participant_result)
+
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            
+            # Create Audio Routing Group 
+            participants_list = [] 
+            participants_list.append(CommunicationUserIdentifier(added_participant))
+            create_audio_routing_group_result = call_connection.create_audio_routing_group(audio_routing_mode=AudioRoutingMode.MULTICAST,
+                    targets=participants_list)
+
+            CallingServerLiveTestUtils.validate_create_audio_routing_group(create_audio_routing_group_result)
+
+            audioRoutingGroupId = create_audio_routing_group_result.audio_routing_group_id
+
+            # Get Audio Routing Group
+            get_audio_routing_group_result = call_connection.list_audio_routing_groups(audioRoutingGroupId)
+            assert get_audio_routing_group_result.audio_routing_mode == AudioRoutingMode.MULTICAST
+            assert get_audio_routing_group_result.targets[0].raw_id == added_participant
+
+            # Add Another Participant
+            OperationContext = str(uuid.uuid4())
+            added_another_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.another_partcipant_guid)
+            add_another_participant_result = call_connection.add_participant(
+                participant=CommunicationUserIdentifier(added_another_participant),
+                operation_context=OperationContext
+                )
+
+            CallingServerLiveTestUtils.validate_add_participant(add_another_participant_result)
+
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+
+            # Update Audio Routing Group
+            participant_list = [] 
+            participant_list.append(CommunicationUserIdentifier(added_another_participant))
+            call_connection.update_audio_routing_group(audioRoutingGroupId, participant_list)
+
+            # Get Audio Routing Group
+            get_audio_routing_group_result = call_connection.list_audio_routing_groups(audioRoutingGroupId)
+            assert get_audio_routing_group_result.audio_routing_mode == AudioRoutingMode.MULTICAST
+            assert get_audio_routing_group_result.targets[0].raw_id == added_another_participant
+
+            # Delete Audio Routing Group
+            call_connection.delete_audio_routing_group(audioRoutingGroupId)
+
+            # Remove Participant
+            call_connection.remove_participant(CommunicationUserIdentifier(added_participant))
+        except Exception as ex:
+            print( str(ex))
+        finally:
+            # Hang up
+            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            call_connection.hang_up()

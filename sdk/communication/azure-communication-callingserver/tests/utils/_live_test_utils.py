@@ -23,7 +23,8 @@ from azure.communication.callingserver import (
     CallMediaType,
     CallingEventSubscriptionType,
     GroupCallLocator,
-    TransferCallResult
+    TransferCallResult,
+    CreateAudioRoutingGroupResult
     )
 
 class RequestReplacerProcessor(RecordingProcessor):
@@ -76,6 +77,12 @@ class CallingServerLiveTestUtils:
         # type: (AddParticipantResult) -> None
         assert add_participant_result is not None
         assert add_participant_result.operation_id is not None
+
+    @staticmethod
+    def validate_create_audio_routing_group(create_audio_routing_group_result):
+        # type: (CreateAudioRoutingGroupResult) -> None
+        assert create_audio_routing_group_result is not None
+        assert create_audio_routing_group_result.audio_routing_group_id is not None
 
     @staticmethod
     def cancel_all_media_operations_for_group_call(call_connections):
