@@ -80,15 +80,15 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-            # Get Call
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            # Get Call
             get_call_result = call_connection.get_call()
             assert get_call_result.call_connection_id is not None
 
-            # Play Audio
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             OperationContext = str(uuid.uuid4())
             AudioFileId = str(uuid.uuid4())
+            # Play Audio
             play_audio_result = call_connection.play_audio(
                 CONST.AUDIO_FILE_URL,
                 is_looped = True,
@@ -97,14 +97,13 @@ class CallConnectionTest(CommunicationTestCase):
                 )
             CallingServerLiveTestUtils.validate_play_audio_result(play_audio_result)
 
-            # Cancel All Media Operations
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            # Cancel All Media Operations
             call_connection.cancel_all_media_operations()
         except Exception as ex:
             print(str(ex))
         finally:
             # Hang up
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.hang_up()
 
     def test_create_add_remove_hangup_scenario(self):
@@ -121,27 +120,25 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-            # Add Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            # Add Participant
             add_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_participant)
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)  
            
-            #list_participants 
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            #list_participants 
             list_participants_result = call_connection.list_participants()
             assert len(list_participants_result) > 2
 
             # Remove Participant
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.remove_participant(CommunicationUserIdentifier(added_participant))
         except Exception as ex:
             print(str(ex))
         finally:
             # Hang up
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.hang_up()
 
     def test_test_create_add_play_audio_to_participant_remove_hangup_scenario(self):
@@ -157,16 +154,16 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-           # Add Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            # Add Participant
             add_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_participant)
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)   
 
-            # Play Audio To Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            # Play Audio To Participant
             play_audio_to_participant_result = call_connection.play_audio_to_participant(
              participant=CommunicationUserIdentifier(added_participant), 
              audio_url = CONST.AUDIO_FILE_URL,
@@ -175,22 +172,20 @@ class CallConnectionTest(CommunicationTestCase):
              
             assert play_audio_to_participant_result.operation_id is not None   
 
-            # Cancel Participant Media Operation 
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            # Cancel Participant Media Operation 
             call_connection.cancel_participant_media_operation(
                 participant=CommunicationUserIdentifier(added_participant),
                 media_operation_id=play_audio_to_participant_result.operation_id
             )
 
             # Remove Participant
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.remove_participant(CommunicationUserIdentifier(added_participant))
 
         except Exception as ex:
             print( str(ex))
         finally:
             # Hang up
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.hang_up()
 
     def test_create_add_participant_mute_unmute_hangup_scenario(self):
@@ -217,31 +212,25 @@ class CallConnectionTest(CommunicationTestCase):
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)
 
             # Mute Participant
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.mute_participant(CommunicationUserIdentifier(added_participant))
 
             # Get Participant
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             muted_participant = call_connection.get_participant(CommunicationUserIdentifier(added_participant))
             assert muted_participant.is_muted == True
 
             # Unmute Participant
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.unmute_participant(CommunicationUserIdentifier(added_participant))
 
             # Get Participant
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             unmuted_participant = call_connection.get_participant(CommunicationUserIdentifier(added_participant))
             assert unmuted_participant.is_muted == False
            
             # Remove Participant
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.remove_participant(CommunicationUserIdentifier(added_participant))
         except Exception as ex:
             print(ex)
         finally:
             # Hang up
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.hang_up()  
 
     def test_hold_resume_participant_audio_scenario(self):
@@ -269,22 +258,20 @@ class CallConnectionTest(CommunicationTestCase):
             CallingServerLiveTestUtils.validate_add_participant(
                 add_participant_result)
 
-            # Hold Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            # Hold Participant
             call_connection.hold_participant_meeting_audio(participant)
 
-            # Resume Participant
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            # Resume Participant
             call_connection.resume_participant_meeting_audio(participant)
 
             # Remove Participant
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.remove_participant(participant)
         except Exception as ex:
             print(ex)
         finally:
             # Hang up
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.hang_up()
 
     @pytest.mark.skip("Skip test as it is not working now")
@@ -301,9 +288,8 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-            # Transfer to call
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             OperationContext = str(uuid.uuid4())
+            # Transfer to call
             transfer_call_result = call_connection.transfer_to_call(
                 target_call_connection_id = os.getenv("TARGET_CALL_CONNECTION_ID"),
                 user_to_user_information='test information',
@@ -327,10 +313,9 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-            # Transfer to participant
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             OperationContext = str(uuid.uuid4())
             target_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            # Transfer to participant
             transfer_call_result = call_connection.transfer_to_participant(
                 target_participant=CommunicationUserIdentifier(target_participant),
                 user_to_user_information='test information',
@@ -355,11 +340,10 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         # Check Keep Alive
-        CallingServerLiveTestUtils.sleep_if_in_live_mode()
         call_connection.keep_alive()
 
-        # Delete the call
         CallingServerLiveTestUtils.sleep_if_in_live_mode()
+        # Delete the call
         call_connection.delete()   # notice that call got disconnected
         try:
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
@@ -384,9 +368,9 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.sleep_if_in_live_mode()
 
         try:
-            # Add Participant
             OperationContext = str(uuid.uuid4())
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            # Add Participant
             add_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_participant),
                 operation_context=OperationContext
@@ -396,9 +380,9 @@ class CallConnectionTest(CommunicationTestCase):
 
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
             
-            # Create Audio Routing Group 
             participants_list = [] 
             participants_list.append(CommunicationUserIdentifier(added_participant))
+            # Create Audio Routing Group 
             create_audio_routing_group_result = call_connection.create_audio_routing_group(audio_routing_mode=AudioRoutingMode.MULTICAST,
                     targets=participants_list)
 
@@ -411,21 +395,20 @@ class CallConnectionTest(CommunicationTestCase):
             assert get_audio_routing_group_result.audio_routing_mode == AudioRoutingMode.MULTICAST
             assert get_audio_routing_group_result.targets[0].raw_id == added_participant
 
-            # Add Another Participant
             OperationContext = str(uuid.uuid4())
             added_another_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.another_partcipant_guid)
+            # Add Another Participant
             add_another_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_another_participant),
                 operation_context=OperationContext
                 )
 
             CallingServerLiveTestUtils.validate_add_participant(add_another_participant_result)
-
             CallingServerLiveTestUtils.sleep_if_in_live_mode()
 
-            # Update Audio Routing Group
             participant_list = [] 
             participant_list.append(CommunicationUserIdentifier(added_another_participant))
+            # Update Audio Routing Group
             call_connection.update_audio_routing_group(audioRoutingGroupId, participant_list)
 
             # Get Audio Routing Group
@@ -442,5 +425,4 @@ class CallConnectionTest(CommunicationTestCase):
             print( str(ex))
         finally:
             # Hang up
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
             call_connection.hang_up()
