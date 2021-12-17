@@ -80,12 +80,12 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Get Call
             get_call_result = call_connection.get_call()
             assert get_call_result.call_connection_id is not None
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
             AudioFileId = str(uuid.uuid4())
             # Play Audio
@@ -97,7 +97,7 @@ class CallConnectionTest(CommunicationTestCase):
                 )
             CallingServerLiveTestUtils.validate_play_audio_result(play_audio_result)
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Cancel All Media Operations
             call_connection.cancel_all_media_operations()
         except Exception as ex:
@@ -120,7 +120,7 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
             # Add Participant
             add_participant_result = call_connection.add_participant(
@@ -128,7 +128,7 @@ class CallConnectionTest(CommunicationTestCase):
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)  
            
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             #list_participants 
             list_participants_result = call_connection.list_participants()
             assert len(list_participants_result) > 2
@@ -154,7 +154,7 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
             # Add Participant
             add_participant_result = call_connection.add_participant(
@@ -162,7 +162,7 @@ class CallConnectionTest(CommunicationTestCase):
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)   
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Play Audio To Participant
             play_audio_to_participant_result = call_connection.play_audio_to_participant(
              participant=CommunicationUserIdentifier(added_participant), 
@@ -172,7 +172,7 @@ class CallConnectionTest(CommunicationTestCase):
              
             assert play_audio_to_participant_result.operation_id is not None   
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Cancel Participant Media Operation 
             call_connection.cancel_participant_media_operation(
                 participant=CommunicationUserIdentifier(added_participant),
@@ -202,7 +202,7 @@ class CallConnectionTest(CommunicationTestCase):
 
         try:
            # Add Participant
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
             add_participant_result = call_connection.add_participant(
@@ -247,7 +247,7 @@ class CallConnectionTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
         try:
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
             participant=CommunicationUserIdentifier(added_participant)
@@ -258,11 +258,11 @@ class CallConnectionTest(CommunicationTestCase):
             CallingServerLiveTestUtils.validate_add_participant(
                 add_participant_result)
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Hold Participant
             call_connection.hold_participant_meeting_audio(participant)
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Resume Participant
             call_connection.resume_participant_meeting_audio(participant)
 
@@ -342,11 +342,11 @@ class CallConnectionTest(CommunicationTestCase):
         # Check Keep Alive
         call_connection.keep_alive()
 
-        CallingServerLiveTestUtils.sleep_if_in_live_mode()
+        CallingServerLiveTestUtils.wait_for_operation_completion()
         # Delete the call
         call_connection.delete()   # notice that call got disconnected
         try:
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             call_connection.keep_alive()
         except Exception as ex:
             assert '8522' in str(ex)
@@ -365,7 +365,7 @@ class CallConnectionTest(CommunicationTestCase):
 
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
 
-        CallingServerLiveTestUtils.sleep_if_in_live_mode()
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
             OperationContext = str(uuid.uuid4())
@@ -378,7 +378,7 @@ class CallConnectionTest(CommunicationTestCase):
 
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             
             participants_list = [] 
             participants_list.append(CommunicationUserIdentifier(added_participant))
@@ -404,7 +404,7 @@ class CallConnectionTest(CommunicationTestCase):
                 )
 
             CallingServerLiveTestUtils.validate_add_participant(add_another_participant_result)
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
 
             participant_list = [] 
             participant_list.append(CommunicationUserIdentifier(added_another_participant))

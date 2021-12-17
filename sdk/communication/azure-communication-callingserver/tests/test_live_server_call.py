@@ -87,7 +87,7 @@ class ServerCallTest(CommunicationTestCase):
 
         try:
             # Play Audio
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
             play_audio_result = self.callingserver_client.play_audio(
                 GroupCallLocator(group_id),
@@ -100,7 +100,7 @@ class ServerCallTest(CommunicationTestCase):
 
             CallingServerLiveTestUtils.validate_play_audio_result(play_audio_result)
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Cancel Prompt Audio
             CallingServerLiveTestUtils.cancel_all_media_operations_for_group_call(call_connections)
         except Exception as ex:
@@ -124,7 +124,7 @@ class ServerCallTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
 
         try:
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.participant_guid)
             # Add Participant
@@ -137,7 +137,7 @@ class ServerCallTest(CommunicationTestCase):
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Play Audio To Participant
             play_audio_to_participant_result = self.callingserver_client.play_audio_to_participant(
                 call_locator=GroupCallLocator(group_id),
@@ -149,7 +149,7 @@ class ServerCallTest(CommunicationTestCase):
 
             assert play_audio_to_participant_result.operation_id is not None
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Cancel Participant Media Operation 
             self.callingserver_client.cancel_participant_media_operation(
                 call_locator=GroupCallLocator(group_id),
@@ -157,7 +157,7 @@ class ServerCallTest(CommunicationTestCase):
                 media_operation_id=play_audio_to_participant_result.operation_id
             )
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Remove Participant
             self.callingserver_client.remove_participant(
                 GroupCallLocator(group_id),
@@ -185,12 +185,12 @@ class ServerCallTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
 
         try:
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Get Call Connection
             get_call_connection = self.callingserver_client.get_call_connection(call_connections[0].call_connection_id)
             assert get_call_connection.call_connection_id is not None
             
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.participant_guid)
             # Add Participant
@@ -203,7 +203,7 @@ class ServerCallTest(CommunicationTestCase):
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Get Participant
             get_participant_result = self.callingserver_client.get_participant(GroupCallLocator(group_id), CommunicationUserIdentifier(added_participant))
             assert get_participant_result.participant_id is not None
@@ -239,18 +239,18 @@ class ServerCallTest(CommunicationTestCase):
             recording_id = start_call_recording_result.recording_id
 
             assert recording_id is not None
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
 
             recording_state = self.callingserver_client.get_recording_properties(recording_id)
             assert recording_state.recording_state == "active"
 
             self.callingserver_client.pause_recording(recording_id)
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             recording_state = self.callingserver_client.get_recording_properties(recording_id)
             assert recording_state.recording_state == "inactive"
 
             self.callingserver_client.resume_recording(recording_id)
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             recording_state = self.callingserver_client.get_recording_properties(recording_id)
             assert recording_state.recording_state == "active"
 
@@ -305,7 +305,7 @@ class ServerCallTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
 
         try:
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
             # Play Audio
             play_audio_result = self.callingserver_client.play_audio(
@@ -319,7 +319,7 @@ class ServerCallTest(CommunicationTestCase):
 
             CallingServerLiveTestUtils.validate_play_audio_result(play_audio_result)
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Cancel Prompt Audio
             self.callingserver_client.cancel_media_operation(
                 call_locator=GroupCallLocator(group_id), 
@@ -345,7 +345,7 @@ class ServerCallTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
 
         try:
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.participant_guid)
             # Add Participant
@@ -358,13 +358,13 @@ class ServerCallTest(CommunicationTestCase):
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Answer Call
             answer_call_result = self.callingserver_client.answer_call(incoming_call_context="26fda345-3b5a-4159-b86b-260decaef2ac", callback_uri=CONST.AppCallbackUrl, 
             requested_media_types=[CallMediaType.AUDIO], requested_call_events=[CallingEventSubscriptionType.PARTICIPANTS_UPDATED])
             assert answer_call_result.call_connection_id is not None
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Remove Participant
             self.callingserver_client.remove_participant(
                 GroupCallLocator(group_id),
@@ -391,7 +391,7 @@ class ServerCallTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
 
         try:
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
             added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.participant_guid)
             # Add Participant
@@ -404,7 +404,7 @@ class ServerCallTest(CommunicationTestCase):
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)
 
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Reject Call
             self.callingserver_client.reject_call(incoming_call_context="26fda345-3b5a-4159-b86b-260decaef2ac", call_reject_reason = CallRejectReason.NONE)
         except Exception as ex:
@@ -429,7 +429,7 @@ class ServerCallTest(CommunicationTestCase):
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
 
         try:
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
             target_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.participant_guid)
             # Redirect Call
             self.callingserver_client.redirect_call(incoming_call_context="26fda345-3b5a-4159-b86b-260decaef2ac", participant=CommunicationUserIdentifier(target_participant))

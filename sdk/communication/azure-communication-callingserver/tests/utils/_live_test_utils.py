@@ -108,7 +108,7 @@ class CallingServerLiveTestUtils:
         return "8:acs:" + RESOURCE_IDENTIFIER + "_" + user_guid
 
     @staticmethod
-    def sleep_if_in_live_mode():
+    def wait_for_operation_completion():
         # type: () -> None
         if is_live():
             time.sleep(10)
@@ -137,7 +137,7 @@ class CallingServerLiveTestUtils:
                 requested_call_events=[CallingEventSubscriptionType.PARTICIPANTS_UPDATED]
                 )
             CallingServerLiveTestUtils.validate_callconnection(from_call_connection)
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
 
             # join to_participant to Server Call
             to_call_connection = callingserver_client.join_call(
@@ -148,7 +148,7 @@ class CallingServerLiveTestUtils:
                 requested_call_events=[CallingEventSubscriptionType.PARTICIPANTS_UPDATED]
                 )
             CallingServerLiveTestUtils.validate_callconnection(from_call_connection)
-            CallingServerLiveTestUtils.sleep_if_in_live_mode()
+            CallingServerLiveTestUtils.wait_for_operation_completion()
 
             group_calls.append(from_call_connection)
             group_calls.append(to_call_connection)
