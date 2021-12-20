@@ -9,7 +9,7 @@ import time, uuid
 import re
 from typing import List
 from devtools_testutils import is_live
-from ._test_constants import RESOURCE_IDENTIFIER, AZURE_TENANT_ID
+from ._test_constants import RESOURCE_IDENTIFIER, AZURE_TENANT_ID, USER_GUID, USER_GUID_ANOTHER
 from azure_devtools.scenario_tests import RecordingProcessor
 from azure.communication.identity import CommunicationIdentityClient
 from azure.communication.callingserver import (
@@ -103,9 +103,18 @@ class CallingServerLiveTestUtils:
                 connection.hang_up()
 
     @staticmethod
-    def get_fixed_user_id(user_guid):
-        # type: (str) -> str
-        return "8:acs:" + RESOURCE_IDENTIFIER + "_" + user_guid
+    def get_fixed_user_id():
+        if is_live():
+            return "8:acs:" + RESOURCE_IDENTIFIER + "_" + USER_GUID
+        
+        return "8:acs:" + RESOURCE_IDENTIFIER + "_" + str(uuid.uuid4())
+
+    @staticmethod
+    def get_another_fixed_user_id():
+        if is_live():
+            return "8:acs:" + RESOURCE_IDENTIFIER + "_" + USER_GUID_ANOTHER
+        
+        return "8:acs:" + RESOURCE_IDENTIFIER + "_" + str(uuid.uuid4())
 
     @staticmethod
     def wait_for_operation_completion():

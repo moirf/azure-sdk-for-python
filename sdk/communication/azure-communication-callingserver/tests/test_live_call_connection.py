@@ -41,8 +41,6 @@ class CallConnectionTest(CommunicationTestCase):
         else:
             self.to_phone_number = os.getenv("AZURE_PHONE_NUMBER")
             self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
-            self.partcipant_guid = os.getenv("PARTICIPANT_GUID")
-            self.another_partcipant_guid = os.getenv("ANOTHER_PARTICIPANT_GUID")
             self.recording_processors.extend([
                 BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId", "callConnectionId", "phoneNumber", "serverCallId"]),
                 BodyReplacerProcessor(keys=["audioFileUri"], replacement = "https://dummy.ngrok.io/audio/sample-message.wav"),
@@ -121,7 +119,7 @@ class CallConnectionTest(CommunicationTestCase):
 
         try:
             CallingServerLiveTestUtils.wait_for_operation_completion()
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_participant)
@@ -155,7 +153,7 @@ class CallConnectionTest(CommunicationTestCase):
 
         try:
             CallingServerLiveTestUtils.wait_for_operation_completion()
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_participant)
@@ -204,7 +202,7 @@ class CallConnectionTest(CommunicationTestCase):
            # Add Participant
             CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
             add_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_participant),
                 operation_context=OperationContext
@@ -249,7 +247,7 @@ class CallConnectionTest(CommunicationTestCase):
         try:
             CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
             participant=CommunicationUserIdentifier(added_participant)
             add_participant_result = call_connection.add_participant(
                 participant=participant,
@@ -314,7 +312,7 @@ class CallConnectionTest(CommunicationTestCase):
 
         try:
             OperationContext = str(uuid.uuid4())
-            target_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            target_participant = CallingServerLiveTestUtils.get_fixed_user_id()
             # Transfer to participant
             transfer_call_result = call_connection.transfer_to_participant(
                 target_participant=CommunicationUserIdentifier(target_participant),
@@ -369,7 +367,7 @@ class CallConnectionTest(CommunicationTestCase):
 
         try:
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.partcipant_guid)
+            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_participant),
@@ -396,7 +394,7 @@ class CallConnectionTest(CommunicationTestCase):
             assert get_audio_routing_group_result.targets[0].raw_id == added_participant
 
             OperationContext = str(uuid.uuid4())
-            added_another_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.another_partcipant_guid)
+            added_another_participant = CallingServerLiveTestUtils.get_another_fixed_user_id()
             # Add Another Participant
             add_another_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_another_participant),

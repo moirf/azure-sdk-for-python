@@ -12,10 +12,10 @@ interactions:
       - '2'
       Content-Type:
       - application/json
-      Date:
-      - Fri, 10 Dec 2021 10:37:17 GMT
       User-Agent:
-      - azsdk-python-communication-identity/1.0.1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
+      x-ms-date:
+      - Mon, 20 Dec 2021 11:01:58 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -32,9 +32,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 10:37:18 GMT
+      - Mon, 20 Dec 2021 11:01:56 GMT
       ms-cv:
-      - wyrLSodSl0eRgMd6a2po3w.2.0
+      - aNPxhQbGqEGOsCb8PM2ONA.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -42,7 +42,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 25ms
+      - 23ms
     status:
       code: 201
       message: Created
@@ -59,10 +59,10 @@ interactions:
       - '2'
       Content-Type:
       - application/json
-      Date:
-      - Fri, 10 Dec 2021 10:37:19 GMT
       User-Agent:
-      - azsdk-python-communication-identity/1.0.1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
+      x-ms-date:
+      - Mon, 20 Dec 2021 11:01:59 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -79,9 +79,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 10:37:20 GMT
+      - Mon, 20 Dec 2021 11:01:58 GMT
       ms-cv:
-      - ZhZA5P0tZ02tulqtHu8r6Q.2.0
+      - 8ZCvZbSSMEC7XAQntKefOg.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -89,7 +89,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 25ms
+      - 24ms
     status:
       code: 201
       message: Created
@@ -108,9 +108,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
     uri: https://sanitized.communication.azure.com/calling/recordings?api-version=2021-11-15-preview
   response:
@@ -122,11 +122,11 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 10:37:27 GMT
+      - Mon, 20 Dec 2021 11:02:06 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 5af42e7b-1b8c-4607-a97a-51df998f9d08
+      - c0e99b85-21f5-4f04-a1ba-ca4560ff987d
     status:
       code: 200
       message: OK

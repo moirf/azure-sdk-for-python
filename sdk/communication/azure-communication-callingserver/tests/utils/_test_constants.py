@@ -51,6 +51,8 @@ PARTICIPANT_ID_01 = "d114c51f-03f1-4dcf-84ed-0a5bb56f17a7"
 PARTICIPANT_ID_02 = "321a1144-ba7c-4a3d-af45-017bb6c52706"
 MEDIA_OPERATION_ID = "dummyMediaOperationId"
 USER_TO_USER_INFORMATION = "dummyUserToUserInformation"
+USER_GUID = '0000000e-775e-2281-fa5d-573a0d00730d'
+USER_GUID_ANOTHER = '0000000e-775e-3b30-fa5d-573a0d007311'
 
 # CreateOrJoinCallPayload
 CreateOrJoinCallPayload={
@@ -112,7 +114,7 @@ CALLBACK_URI = "https://bot.contoso.io/callback"
 CONNECTION_STRING = "endpoint=https://REDACTED.communication.azure.com/;accesskey=eyJhbG=="
 
 
-SEVERCALL_ID = "aHKW9HM6Ly9jb252ZXJzYXRpb24tc2VydmljZS11cmwvYXBpL3YyL2VwL2NvbnYvc2Rjc3NlaVdiUV8wLVNCTE9peG1NWHRRP2k9OSZlPTYzNzU1MDY4NDM3MDUzNTAwMQ=="
+INVALID_SEVERCALL_ID = "aHKW9HM6Ly9jb252ZXJzYXRpb24tc2VydmljZS11cmwvYXBpL3YyL2VwL2NvbnYvc2Rjc3NlaVdiUV8wLVNCTE9peG1NWHRRP2k9OSZlPTYzNzU1MDY4NDM3MDUzNTAwMQ=="
 GROUPCALL_ID = "507ad2dc-5a40-4d85-b2d9-cf214d469638"
 
 SERVER_CALL_LOCATOR = "serverCallLocator"
@@ -162,7 +164,7 @@ GetCallResponsePayload = {
         CALLEVENTS_PARTICIPANTSUPDATED
     ],
     "callLocator": {
-          "serverCallId": SEVERCALL_ID,
+          "serverCallId": INVALID_SEVERCALL_ID,
           "kind": SERVER_CALL_LOCATOR
         }
     }

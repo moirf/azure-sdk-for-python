@@ -12,10 +12,10 @@ interactions:
       - '2'
       Content-Type:
       - application/json
-      Date:
-      - Fri, 10 Dec 2021 08:15:05 GMT
       User-Agent:
-      - azsdk-python-communication-identity/1.0.1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
+      x-ms-date:
+      - Mon, 20 Dec 2021 10:49:17 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -32,9 +32,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 08:15:05 GMT
+      - Mon, 20 Dec 2021 10:49:15 GMT
       ms-cv:
-      - NVaZ6vHr8028xW+mYvRSyw.2.0
+      - x4/SWTuoC0+Mu/j9qeEOEA.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -42,7 +42,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 22ms
+      - 23ms
     status:
       code: 201
       message: Created
@@ -59,10 +59,10 @@ interactions:
       - '2'
       Content-Type:
       - application/json
-      Date:
-      - Fri, 10 Dec 2021 08:15:06 GMT
       User-Agent:
-      - azsdk-python-communication-identity/1.0.1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
+      x-ms-date:
+      - Mon, 20 Dec 2021 10:49:18 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -79,9 +79,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 08:15:07 GMT
+      - Mon, 20 Dec 2021 10:49:17 GMT
       ms-cv:
-      - xRxeNi6rB0ilR8DGYjk7lg.2.0
+      - 8TxxVyeP20yZ5BUQZtXkNA.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -89,7 +89,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 24ms
+      - 25ms
     status:
       code: 201
       message: Created
@@ -109,9 +109,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
     uri: https://sanitized.communication.azure.com/calling/callConnections?api-version=2021-11-15-preview
   response:
@@ -123,53 +123,16 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 08:15:15 GMT
+      - Mon, 20 Dec 2021 10:49:18 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 9ae21145-726a-4a71-adbb-4cbbf51c8c66
+      - 6414a19e-bbe9-48d8-91fc-88a984d5dc9d
     status:
       code: 201
       message: Created
 - request:
-    body: null
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
-      x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
-    method: GET
-    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized?api-version=2021-11-15-preview
-  response:
-    body:
-      string: '{"callConnectionId": "sanitized", "source": "sanitized", "alternateCallerId":
-        "sanitized", "targets": "sanitized", "callConnectionState": "connected", "callbackUri":
-        "sanitized", "requestedMediaTypes": ["audio"], "requestedCallEvents": ["participantsUpdated"],
-        "callLocator": {"serverCallId": "sanitized", "kind": "serverCallLocator"}}'
-    headers:
-      content-length:
-      - '769'
-      content-type:
-      - application/json; charset=utf-8
-      date:
-      - Fri, 10 Dec 2021 08:15:35 GMT
-      x-cache:
-      - CONFIG_NOCACHE
-      x-microsoft-skype-chain-id:
-      - 02d3a7d8-3474-427a-91c9-4bbe687aca30
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"audioFileUri": "https://dummy.ngrok.io/audio/sample-message.wav", "loop":
-      true, "operationContext": "1db17b41-6004-4710-81da-0d3ec11b8b0d", "audioFileId":
-      "8064c410-16e1-49f7-8b36-ae1548d96bcd"}'
+    body: '{"userToUserInformation": "test information", "operationContext": "b2a2d2fc-5dd9-4632-99b6-abaabb7bb53e"}'
     headers:
       Accept:
       - application/json
@@ -178,35 +141,36 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '235'
+      - '105'
       Content-Type:
       - application/json
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
-    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:playAudio?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:transferToCall?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"operationId": "899e80cc-080d-49b9-9fbc-f34805cbdf88", "status": "running",
-        "operationContext": "1db17b41-6004-4710-81da-0d3ec11b8b0d"}'
+      string: '{"error": {"code": "InternalServerError", "message": "Index was out
+        of range. Must be non-negative and less than the size of the collection.\r\nParameter
+        name: index"}}'
     headers:
       content-length:
-      - '131'
+      - '164'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 08:15:50 GMT
+      - Mon, 20 Dec 2021 10:49:19 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 9780600e-3ab6-493a-b8ab-5ce1346d6072
+      - 6414a19e-bbe9-48d8-91fc-88a984d5dc9d
     status:
-      code: 202
-      message: Accepted
+      code: 500
+      message: Internal Server Error
 - request:
-    body: null
+    body: '{"userToUserInformation": "test information", "operationContext": "b2a2d2fc-5dd9-4632-99b6-abaabb7bb53e"}'
     headers:
       Accept:
       - application/json
@@ -215,32 +179,36 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '0'
+      - '105'
+      Content-Type:
+      - application/json
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
-    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:cancelAllMediaOperations?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:transferToCall?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"operationId": "a4405bc3-7383-4d7b-8b69-4d4d69b115f4", "status": "completed"}'
+      string: '{"error": {"code": "InternalServerError", "message": "Index was out
+        of range. Must be non-negative and less than the size of the collection.\r\nParameter
+        name: index"}}'
     headers:
       content-length:
-      - '75'
+      - '164'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 08:16:09 GMT
+      - Mon, 20 Dec 2021 10:49:19 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 5265dbf1-4eeb-40d7-922b-e985052ee246
+      - 6414a19e-bbe9-48d8-91fc-88a984d5dc9d
     status:
-      code: 200
-      message: OK
+      code: 500
+      message: Internal Server Error
 - request:
-    body: null
+    body: '{"userToUserInformation": "test information", "operationContext": "b2a2d2fc-5dd9-4632-99b6-abaabb7bb53e"}'
     headers:
       Accept:
       - application/json
@@ -249,26 +217,70 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '0'
+      - '105'
+      Content-Type:
+      - application/json
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
-    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:hangup?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:transferToCall?api-version=2021-11-15-preview
   response:
     body:
-      string: ''
+      string: '{"error": {"code": "InternalServerError", "message": "Index was out
+        of range. Must be non-negative and less than the size of the collection.\r\nParameter
+        name: index"}}'
     headers:
       content-length:
-      - '0'
+      - '164'
+      content-type:
+      - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 08:16:20 GMT
+      - Mon, 20 Dec 2021 10:49:21 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 1953f22e-84a0-457f-a644-24ac504692fa
+      - 6414a19e-bbe9-48d8-91fc-88a984d5dc9d
     status:
-      code: 202
-      message: Accepted
+      code: 500
+      message: Internal Server Error
+- request:
+    body: '{"userToUserInformation": "test information", "operationContext": "b2a2d2fc-5dd9-4632-99b6-abaabb7bb53e"}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '105'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
+      x-ms-host:
+      - acs-app-validations.communication.azure.com
+    method: POST
+    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:transferToCall?api-version=2021-11-15-preview
+  response:
+    body:
+      string: '{"error": {"code": "InternalServerError", "message": "Index was out
+        of range. Must be non-negative and less than the size of the collection.\r\nParameter
+        name: index"}}'
+    headers:
+      content-length:
+      - '164'
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Mon, 20 Dec 2021 10:49:25 GMT
+      x-cache:
+      - CONFIG_NOCACHE
+      x-microsoft-skype-chain-id:
+      - 6414a19e-bbe9-48d8-91fc-88a984d5dc9d
+    status:
+      code: 500
+      message: Internal Server Error
 version: 1

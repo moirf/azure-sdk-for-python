@@ -12,10 +12,10 @@ interactions:
       - '2'
       Content-Type:
       - application/json
-      Date:
-      - Fri, 10 Dec 2021 09:09:30 GMT
       User-Agent:
-      - azsdk-python-communication-identity/1.0.1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
+      x-ms-date:
+      - Mon, 20 Dec 2021 10:54:47 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -32,9 +32,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 09:09:30 GMT
+      - Mon, 20 Dec 2021 10:54:46 GMT
       ms-cv:
-      - CLQDmKOfVkmf5zo5rh/xCg.2.0
+      - wXwQxcxxw0eY1kqh7wnqGA.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -42,7 +42,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 24ms
+      - 19ms
     status:
       code: 201
       message: Created
@@ -59,10 +59,10 @@ interactions:
       - '2'
       Content-Type:
       - application/json
-      Date:
-      - Fri, 10 Dec 2021 09:09:31 GMT
       User-Agent:
-      - azsdk-python-communication-identity/1.0.1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
+      x-ms-date:
+      - Mon, 20 Dec 2021 10:54:49 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -79,9 +79,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 09:09:31 GMT
+      - Mon, 20 Dec 2021 10:54:46 GMT
       ms-cv:
-      - ZUUizmbUX0+NZXICaTn4ZA.2.0
+      - rcIMkUaZd02koF/TNx7e1Q.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -89,7 +89,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 24ms
+      - 22ms
     status:
       code: 201
       message: Created
@@ -109,9 +109,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
     uri: https://sanitized.communication.azure.com/calling:join?api-version=2021-11-15-preview
   response:
@@ -123,11 +123,11 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 09:09:37 GMT
+      - Mon, 20 Dec 2021 10:54:50 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - c50b76e3-1f8b-4499-b781-cbe6521e2f9f
+      - 693b891e-432a-41e4-a838-4b416ab22dc9
     status:
       code: 202
       message: Accepted
@@ -147,9 +147,9 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
     uri: https://sanitized.communication.azure.com/calling:join?api-version=2021-11-15-preview
   response:
@@ -161,18 +161,18 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 09:09:48 GMT
+      - Mon, 20 Dec 2021 10:55:00 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - ea3bbf60-90bc-4f1a-892c-06ccb550eb7a
+      - 34165666-8990-4d93-b97b-128ae8101d0c
     status:
       code: 202
       message: Accepted
 - request:
     body: '{"callLocator": {"groupCallId": "sanitized", "kind": "groupCallLocator"},
       "callbackUri": "sanitized", "participant": {"communicationUser": "sanitized"},
-      "operationContext": "863a89f1-86a8-4e58-85b0-ca07277e8749"}'
+      "operationContext": "21ea3fbb-8483-40a0-8632-c6de378c40d3"}'
     headers:
       Accept:
       - application/json
@@ -185,34 +185,32 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
     uri: https://sanitized.communication.azure.com/calling/participants?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"operationId": "d3d6f118-72f2-412c-a69d-29a522b9cc27", "status": "running",
-        "operationContext": "863a89f1-86a8-4e58-85b0-ca07277e8749"}'
+      string: '{"operationId": "f666726f-d45e-4f3b-9acd-e1371890cb3a", "status": "running",
+        "operationContext": "21ea3fbb-8483-40a0-8632-c6de378c40d3"}'
     headers:
       content-length:
       - '131'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 09:10:13 GMT
+      - Mon, 20 Dec 2021 10:55:21 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 1d9ac4f1-dbe6-4a4c-b5f5-250db03ee7a0
+      - 833e82aa-5a5f-4c50-8b00-1f30aa7562a0
     status:
       code: 202
       message: Accepted
 - request:
-    body: '{"identifier": {"communicationUser": "sanitized"}, "callLocator": {"groupCallId":
-      "sanitized", "kind": "groupCallLocator"}, "callbackUri": "sanitized", "audioFileUri":
-      "https://dummy.ngrok.io/audio/sample-message.wav", "loop": true, "audioFileId":
-      "43e56161-d224-4e60-be8a-756d30e58d18"}'
+    body: '{"incomingCallContext": "26fda345-3b5a-4159-b86b-260decaef2ac", "callbackUri":
+      "sanitized", "requestedMediaTypes": ["audio"], "requestedCallEvents": ["participantsUpdated"]}'
     headers:
       Accept:
       - application/json
@@ -221,35 +219,38 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '487'
+      - '229'
       Content-Type:
       - application/json
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
-    uri: https://sanitized.communication.azure.com/calling/participants:playAudio?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling:answer?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"operationId": "5f201300-c27f-4d40-bf62-78b37cc28315", "status": "running"}'
+      string: '{"error": {"code": "InternalServerError", "message": "The input is
+        not a valid Base-64 string as it contains a non-base 64 character, more than
+        two padding characters, or an illegal character among the padding characters.
+        "}}'
     headers:
       content-length:
-      - '73'
+      - '221'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 09:10:31 GMT
+      - Mon, 20 Dec 2021 10:55:32 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - c5a99485-064c-427e-af98-6e8901a43af4
+      - a5864c2e-7a45-4612-958c-c3933f249463
     status:
-      code: 202
-      message: Accepted
+      code: 500
+      message: Internal Server Error
 - request:
-    body: '{"callLocator": {"groupCallId": "sanitized", "kind": "groupCallLocator"},
-      "identifier": {"communicationUser": "sanitized"}, "mediaOperationId": "5f201300-c27f-4d40-bf62-78b37cc28315"}'
+    body: '{"incomingCallContext": "26fda345-3b5a-4159-b86b-260decaef2ac", "callbackUri":
+      "sanitized", "requestedMediaTypes": ["audio"], "requestedCallEvents": ["participantsUpdated"]}'
     headers:
       Accept:
       - application/json
@@ -258,33 +259,38 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '288'
+      - '229'
       Content-Type:
       - application/json
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
-    uri: https://sanitized.communication.azure.com/calling/participants:cancelMediaOperation?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling:answer?api-version=2021-11-15-preview
   response:
     body:
-      string: ''
+      string: '{"error": {"code": "InternalServerError", "message": "The input is
+        not a valid Base-64 string as it contains a non-base 64 character, more than
+        two padding characters, or an illegal character among the padding characters.
+        "}}'
     headers:
       content-length:
-      - '0'
+      - '221'
+      content-type:
+      - application/json; charset=utf-8
       date:
-      - Fri, 10 Dec 2021 09:10:43 GMT
+      - Mon, 20 Dec 2021 10:55:32 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - b04259f1-2c36-402b-bbc9-a8359db57f9e
+      - f0c8a977-e006-42c7-868b-305e6768c11b
     status:
-      code: 200
-      message: OK
+      code: 500
+      message: Internal Server Error
 - request:
-    body: '{"callLocator": {"groupCallId": "sanitized", "kind": "groupCallLocator"},
-      "identifier": {"communicationUser": "sanitized"}}'
+    body: '{"incomingCallContext": "26fda345-3b5a-4159-b86b-260decaef2ac", "callbackUri":
+      "sanitized", "requestedMediaTypes": ["audio"], "requestedCallEvents": ["participantsUpdated"]}'
     headers:
       Accept:
       - application/json
@@ -293,15 +299,92 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '228'
+      - '229'
       Content-Type:
       - application/json
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
-    uri: https://sanitized.communication.azure.com/calling/participants:remove?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling:answer?api-version=2021-11-15-preview
+  response:
+    body:
+      string: '{"error": {"code": "InternalServerError", "message": "The input is
+        not a valid Base-64 string as it contains a non-base 64 character, more than
+        two padding characters, or an illegal character among the padding characters.
+        "}}'
+    headers:
+      content-length:
+      - '221'
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Mon, 20 Dec 2021 10:55:34 GMT
+      x-cache:
+      - CONFIG_NOCACHE
+      x-microsoft-skype-chain-id:
+      - d2cb3e0f-5e50-4bf1-a16b-e8ead8c96fe5
+    status:
+      code: 500
+      message: Internal Server Error
+- request:
+    body: '{"incomingCallContext": "26fda345-3b5a-4159-b86b-260decaef2ac", "callbackUri":
+      "sanitized", "requestedMediaTypes": ["audio"], "requestedCallEvents": ["participantsUpdated"]}'
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '229'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
+      x-ms-host:
+      - acs-app-validations.communication.azure.com
+    method: POST
+    uri: https://sanitized.communication.azure.com/calling:answer?api-version=2021-11-15-preview
+  response:
+    body:
+      string: '{"error": {"code": "InternalServerError", "message": "The input is
+        not a valid Base-64 string as it contains a non-base 64 character, more than
+        two padding characters, or an illegal character among the padding characters.
+        "}}'
+    headers:
+      content-length:
+      - '221'
+      content-type:
+      - application/json; charset=utf-8
+      date:
+      - Mon, 20 Dec 2021 10:55:37 GMT
+      x-cache:
+      - CONFIG_NOCACHE
+      x-microsoft-skype-chain-id:
+      - 2cf32acc-7e7f-41f2-ae53-f29c5bd50a2d
+    status:
+      code: 500
+      message: Internal Server Error
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
+      x-ms-host:
+      - acs-app-validations.communication.azure.com
+    method: POST
+    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:hangup?api-version=2021-11-15-preview
   response:
     body:
       string: ''
@@ -309,11 +392,11 @@ interactions:
       content-length:
       - '0'
       date:
-      - Fri, 10 Dec 2021 09:10:54 GMT
+      - Mon, 20 Dec 2021 10:55:38 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - fd094a99-feba-4296-b2ef-87b90441663a
+      - 693b891e-432a-41e4-a838-4b416ab22dc9
     status:
       code: 202
       message: Accepted
@@ -329,9 +412,9 @@ interactions:
       Content-Length:
       - '0'
       User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
+      - acs-app-validations.communication.azure.com
     method: POST
     uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:hangup?api-version=2021-11-15-preview
   response:
@@ -341,43 +424,11 @@ interactions:
       content-length:
       - '0'
       date:
-      - Fri, 10 Dec 2021 09:11:04 GMT
+      - Mon, 20 Dec 2021 10:55:38 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 967675c3-e575-4baa-aa18-00b0f7acd741
-    status:
-      code: 202
-      message: Accepted
-- request:
-    body: null
-    headers:
-      Accept:
-      - application/json
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '0'
-      User-Agent:
-      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.9.6 (Windows-10-10.0.22000-SP0)
-      x-ms-host:
-      - acstelephonyportaltesting.communication.azure.com
-    method: POST
-    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:hangup?api-version=2021-11-15-preview
-  response:
-    body:
-      string: ''
-    headers:
-      content-length:
-      - '0'
-      date:
-      - Fri, 10 Dec 2021 09:11:05 GMT
-      x-cache:
-      - CONFIG_NOCACHE
-      x-microsoft-skype-chain-id:
-      - eb6ec06b-b3e3-47a5-a542-3a9b3e229d17
+      - 693b891e-432a-41e4-a838-4b416ab22dc9
     status:
       code: 202
       message: Accepted

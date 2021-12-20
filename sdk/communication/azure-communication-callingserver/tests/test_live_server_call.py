@@ -39,14 +39,11 @@ class ServerCallTest(CommunicationTestCase):
         if self.is_playback():
             self.from_phone_number = "+15551234567"
             self.to_phone_number = "+15551234567"
-            self.invalid_server_call_id = "aHR0cHM6Ly9XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
             self.recording_processors.extend([
                 BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId", "callConnectionId", "phoneNumber", "groupCallId", "recordingId", "serverCallId"])])
         else:
             self.to_phone_number = os.getenv("AZURE_PHONE_NUMBER")
             self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
-            self.invalid_server_call_id = os.getenv("INVALID_SERVER_CALL_ID")
-            self.participant_guid = os.getenv("PARTICIPANT_GUID")
             self.recording_processors.extend([
                 BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId", "callConnectionId", "phoneNumber", "groupCallId", "recordingId", "serverCallId"]),
                 BodyReplacerProcessor(keys=["audioFileUri"], replacement = "https://dummy.ngrok.io/audio/sample-message.wav"),
@@ -126,8 +123,8 @@ class ServerCallTest(CommunicationTestCase):
         try:
             CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.participant_guid)
-            # Add Participant
+            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
+            # Add Participant           
             add_participant_result = self.callingserver_client.add_participant(
                 call_locator=GroupCallLocator(group_id),
                 participant=CommunicationUserIdentifier(added_participant),
@@ -192,7 +189,7 @@ class ServerCallTest(CommunicationTestCase):
             
             CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.participant_guid)
+            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = self.callingserver_client.add_participant(
                 call_locator=GroupCallLocator(group_id),
@@ -262,7 +259,7 @@ class ServerCallTest(CommunicationTestCase):
 
     def test_start_recording_fails(self):
         with self.assertRaises(HttpResponseError):
-            self.callingserver_client.start_recording(ServerCallLocator(self.invalid_server_call_id), CONST.CALLBACK_URI)
+            self.callingserver_client.start_recording(ServerCallLocator(CONST.INVALID_SEVERCALL_ID), CONST.CALLBACK_URI)
 
     def test_start_recording_relative_uri_fails(self):
         group_id = CallingServerLiveTestUtils.get_group_id("test_start_recording_relative_uri_fails")
@@ -347,7 +344,7 @@ class ServerCallTest(CommunicationTestCase):
         try:
             CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.participant_guid)
+            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = self.callingserver_client.add_participant(
                 call_locator=GroupCallLocator(group_id),
@@ -393,7 +390,7 @@ class ServerCallTest(CommunicationTestCase):
         try:
             CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.participant_guid)
+            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = self.callingserver_client.add_participant(
                 call_locator=GroupCallLocator(group_id),
@@ -430,7 +427,7 @@ class ServerCallTest(CommunicationTestCase):
 
         try:
             CallingServerLiveTestUtils.wait_for_operation_completion()
-            target_participant = CallingServerLiveTestUtils.get_fixed_user_id(self.participant_guid)
+            target_participant = CallingServerLiveTestUtils.get_fixed_user_id()
             # Redirect Call
             self.callingserver_client.redirect_call(incoming_call_context="26fda345-3b5a-4159-b86b-260decaef2ac", participant=CommunicationUserIdentifier(target_participant))
         except Exception as ex:
