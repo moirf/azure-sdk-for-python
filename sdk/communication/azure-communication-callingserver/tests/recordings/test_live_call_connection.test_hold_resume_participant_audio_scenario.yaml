@@ -15,7 +15,7 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Mon, 20 Dec 2021 10:48:06 GMT
+      - Tue, 21 Dec 2021 11:37:55 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -32,9 +32,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 10:48:06 GMT
+      - Tue, 21 Dec 2021 11:37:55 GMT
       ms-cv:
-      - VvWnvoK5zEGUaW1gYtcUXg.2.0
+      - gjKIkPQnyk+Bwa4nmcEnIw.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -42,7 +42,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 35ms
+      - 23ms
     status:
       code: 201
       message: Created
@@ -62,7 +62,7 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Mon, 20 Dec 2021 10:48:08 GMT
+      - Tue, 21 Dec 2021 11:37:56 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -79,9 +79,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 10:48:06 GMT
+      - Tue, 21 Dec 2021 11:37:55 GMT
       ms-cv:
-      - CsdYh8f9K0OhL5E0VvHdpg.2.0
+      - aPY5E7PXWEGsrIKikr+Xtw.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -123,17 +123,17 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 10:48:09 GMT
+      - Tue, 21 Dec 2021 11:37:58 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 7866c9c3-d2f3-4467-8b4d-17fddf825f06
+      - 4ee67771-4d6f-4640-96eb-67e88e93a949
     status:
       code: 201
       message: Created
 - request:
     body: '{"participant": {"communicationUser": "sanitized"}, "operationContext":
-      "1cb109a0-ca6d-46fe-8b6d-151fac30981f"}'
+      "11cc8e28-b069-470a-95c8-2dd6c7aef054"}'
     headers:
       Accept:
       - application/json
@@ -153,19 +153,19 @@ interactions:
     uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/participants?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"operationId": "bd0f43dd-af68-4524-adb9-ab982479fdd7", "status": "running",
-        "operationContext": "1cb109a0-ca6d-46fe-8b6d-151fac30981f"}'
+      string: '{"operationId": "6cf6800d-4da2-431c-a308-4a57ee1696c7", "status": "running",
+        "operationContext": "11cc8e28-b069-470a-95c8-2dd6c7aef054"}'
     headers:
       content-length:
       - '131'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 10:48:18 GMT
+      - Tue, 21 Dec 2021 11:38:09 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 7866c9c3-d2f3-4467-8b4d-17fddf825f06
+      - 4ee67771-4d6f-4640-96eb-67e88e93a949
     status:
       code: 202
       message: Accepted
@@ -195,11 +195,11 @@ interactions:
       content-length:
       - '0'
       date:
-      - Mon, 20 Dec 2021 10:48:28 GMT
+      - Tue, 21 Dec 2021 11:38:19 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 7866c9c3-d2f3-4467-8b4d-17fddf825f06
+      - 4ee67771-4d6f-4640-96eb-67e88e93a949
     status:
       code: 200
       message: OK
@@ -229,11 +229,11 @@ interactions:
       content-length:
       - '0'
       date:
-      - Mon, 20 Dec 2021 10:48:38 GMT
+      - Tue, 21 Dec 2021 11:38:30 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 7866c9c3-d2f3-4467-8b4d-17fddf825f06
+      - 4ee67771-4d6f-4640-96eb-67e88e93a949
     status:
       code: 200
       message: OK
@@ -263,11 +263,11 @@ interactions:
       content-length:
       - '0'
       date:
-      - Mon, 20 Dec 2021 10:48:38 GMT
+      - Tue, 21 Dec 2021 11:38:31 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 7866c9c3-d2f3-4467-8b4d-17fddf825f06
+      - 4ee67771-4d6f-4640-96eb-67e88e93a949
     status:
       code: 202
       message: Accepted
@@ -295,11 +295,11 @@ interactions:
       content-length:
       - '0'
       date:
-      - Mon, 20 Dec 2021 10:48:39 GMT
+      - Tue, 21 Dec 2021 11:38:31 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 7866c9c3-d2f3-4467-8b4d-17fddf825f06
+      - 4ee67771-4d6f-4640-96eb-67e88e93a949
     status:
       code: 202
       message: Accepted

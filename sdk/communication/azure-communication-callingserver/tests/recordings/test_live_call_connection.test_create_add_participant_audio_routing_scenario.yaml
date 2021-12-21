@@ -15,7 +15,7 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Mon, 20 Dec 2021 12:01:50 GMT
+      - Tue, 21 Dec 2021 11:26:23 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -32,9 +32,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 12:01:48 GMT
+      - Tue, 21 Dec 2021 11:26:23 GMT
       ms-cv:
-      - l8jBGRc1lkKYp7Ep4RBnZA.2.0
+      - En2xLHgt40iT1XQU69+wpg.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -42,7 +42,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 23ms
+      - 29ms
     status:
       code: 201
       message: Created
@@ -62,7 +62,7 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Mon, 20 Dec 2021 12:01:52 GMT
+      - Tue, 21 Dec 2021 11:26:24 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -79,9 +79,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 12:01:49 GMT
+      - Tue, 21 Dec 2021 11:26:24 GMT
       ms-cv:
-      - 9V68aX/2S0+e/E7hL489Lg.2.0
+      - TVDKRvvmZ0au1mCRE4tDrA.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -89,7 +89,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 41ms
+      - 23ms
     status:
       code: 201
       message: Created
@@ -123,17 +123,17 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 12:01:51 GMT
+      - Tue, 21 Dec 2021 11:26:26 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 4ab0a633-f0dd-4c99-9ee0-eb3b4ebf839f
+      - e3c31a90-6546-463c-ae47-ad6e3ecfd021
     status:
       code: 201
       message: Created
 - request:
     body: '{"participant": {"communicationUser": "sanitized"}, "operationContext":
-      "7e041107-32c6-4712-9886-e9fb1ffd8d1e"}'
+      "862783b8-09f7-4827-bbb5-1e4fd5df359e"}'
     headers:
       Accept:
       - application/json
@@ -153,19 +153,19 @@ interactions:
     uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/participants?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"operationId": "50da367a-6a5c-46c3-9b20-565782d1418a", "status": "running",
-        "operationContext": "7e041107-32c6-4712-9886-e9fb1ffd8d1e"}'
+      string: '{"operationId": "06281bbb-cd5a-4516-bc12-bd6350894702", "status": "running",
+        "operationContext": "862783b8-09f7-4827-bbb5-1e4fd5df359e"}'
     headers:
       content-length:
       - '131'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 12:02:02 GMT
+      - Tue, 21 Dec 2021 11:26:36 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 4ab0a633-f0dd-4c99-9ee0-eb3b4ebf839f
+      - e3c31a90-6546-463c-ae47-ad6e3ecfd021
     status:
       code: 202
       message: Accepted
@@ -190,18 +190,18 @@ interactions:
     uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:createAudioRoutingGroup?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"audioRoutingGroupId": "bc872994-1134-4284-bd29-3c679be2fcfd"}'
+      string: '{"audioRoutingGroupId": "5dbfa2b3-11f4-4a5e-aa49-28a62eb5cb0f"}'
     headers:
       content-length:
       - '62'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 12:02:13 GMT
+      - Tue, 21 Dec 2021 11:26:47 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 4ab0a633-f0dd-4c99-9ee0-eb3b4ebf839f
+      - e3c31a90-6546-463c-ae47-ad6e3ecfd021
     status:
       code: 201
       message: Created
@@ -219,7 +219,7 @@ interactions:
       x-ms-host:
       - acs-app-validations.communication.azure.com
     method: GET
-    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/audioRoutingGroups/bc872994-1134-4284-bd29-3c679be2fcfd?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/audioRoutingGroups/5dbfa2b3-11f4-4a5e-aa49-28a62eb5cb0f?api-version=2021-11-15-preview
   response:
     body:
       string: '{"audioRoutingMode": "multicast", "targets": "sanitized"}'
@@ -229,17 +229,17 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 12:02:14 GMT
+      - Tue, 21 Dec 2021 11:26:47 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 4ab0a633-f0dd-4c99-9ee0-eb3b4ebf839f
+      - e3c31a90-6546-463c-ae47-ad6e3ecfd021
     status:
       code: 200
       message: OK
 - request:
     body: '{"participant": {"communicationUser": "sanitized"}, "operationContext":
-      "a4986628-c4b4-43e7-82d3-d81a70373d04"}'
+      "1aa0ebbd-7022-41ef-9da9-51ade474d9be"}'
     headers:
       Accept:
       - application/json
@@ -259,19 +259,19 @@ interactions:
     uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/participants?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"operationId": "cf1a469b-942d-45bd-9ebc-ba4879e0d3a2", "status": "running",
-        "operationContext": "a4986628-c4b4-43e7-82d3-d81a70373d04"}'
+      string: '{"operationId": "d205ccd3-1dca-4f78-ad16-c956c828ec71", "status": "running",
+        "operationContext": "1aa0ebbd-7022-41ef-9da9-51ade474d9be"}'
     headers:
       content-length:
       - '131'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 12:02:14 GMT
+      - Tue, 21 Dec 2021 11:26:47 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 4ab0a633-f0dd-4c99-9ee0-eb3b4ebf839f
+      - e3c31a90-6546-463c-ae47-ad6e3ecfd021
     status:
       code: 202
       message: Accepted
@@ -293,7 +293,7 @@ interactions:
       x-ms-host:
       - acs-app-validations.communication.azure.com
     method: PATCH
-    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/audioRoutingGroups/bc872994-1134-4284-bd29-3c679be2fcfd?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/audioRoutingGroups/5dbfa2b3-11f4-4a5e-aa49-28a62eb5cb0f?api-version=2021-11-15-preview
   response:
     body:
       string: ''
@@ -301,11 +301,11 @@ interactions:
       content-length:
       - '0'
       date:
-      - Mon, 20 Dec 2021 12:02:24 GMT
+      - Tue, 21 Dec 2021 11:26:58 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 4ab0a633-f0dd-4c99-9ee0-eb3b4ebf839f
+      - e3c31a90-6546-463c-ae47-ad6e3ecfd021
     status:
       code: 200
       message: OK
@@ -323,7 +323,7 @@ interactions:
       x-ms-host:
       - acs-app-validations.communication.azure.com
     method: GET
-    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/audioRoutingGroups/bc872994-1134-4284-bd29-3c679be2fcfd?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/audioRoutingGroups/5dbfa2b3-11f4-4a5e-aa49-28a62eb5cb0f?api-version=2021-11-15-preview
   response:
     body:
       string: '{"audioRoutingMode": "multicast", "targets": "sanitized"}'
@@ -333,11 +333,11 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 12:02:25 GMT
+      - Tue, 21 Dec 2021 11:26:58 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 4ab0a633-f0dd-4c99-9ee0-eb3b4ebf839f
+      - e3c31a90-6546-463c-ae47-ad6e3ecfd021
     status:
       code: 200
       message: OK
@@ -357,7 +357,7 @@ interactions:
       x-ms-host:
       - acs-app-validations.communication.azure.com
     method: DELETE
-    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/audioRoutingGroups/bc872994-1134-4284-bd29-3c679be2fcfd?api-version=2021-11-15-preview
+    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/audioRoutingGroups/5dbfa2b3-11f4-4a5e-aa49-28a62eb5cb0f?api-version=2021-11-15-preview
   response:
     body:
       string: ''
@@ -365,11 +365,11 @@ interactions:
       content-length:
       - '0'
       date:
-      - Mon, 20 Dec 2021 12:02:26 GMT
+      - Tue, 21 Dec 2021 11:26:58 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 4ab0a633-f0dd-4c99-9ee0-eb3b4ebf839f
+      - e3c31a90-6546-463c-ae47-ad6e3ecfd021
     status:
       code: 200
       message: OK
@@ -397,11 +397,11 @@ interactions:
       content-length:
       - '0'
       date:
-      - Mon, 20 Dec 2021 12:02:26 GMT
+      - Tue, 21 Dec 2021 11:26:59 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 4ab0a633-f0dd-4c99-9ee0-eb3b4ebf839f
+      - e3c31a90-6546-463c-ae47-ad6e3ecfd021
     status:
       code: 202
       message: Accepted

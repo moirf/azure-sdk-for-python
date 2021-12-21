@@ -76,9 +76,9 @@ class CallConnectionTest(CommunicationTestCase):
                     alternate_caller_id=PhoneNumberIdentifier(self.from_phone_number)
                     )   
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
-            CallingServerLiveTestUtils.wait_for_operation_completion()
             # Get Call
             get_call_result = call_connection.get_call()
             assert get_call_result.call_connection_id is not None
@@ -116,13 +116,13 @@ class CallConnectionTest(CommunicationTestCase):
                     )   
 
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
-            CallingServerLiveTestUtils.wait_for_operation_completion()
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
+            participant_to_add = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = call_connection.add_participant(
-                participant=CommunicationUserIdentifier(added_participant)
+                participant=CommunicationUserIdentifier(participant_to_add)
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)  
            
@@ -132,7 +132,7 @@ class CallConnectionTest(CommunicationTestCase):
             assert len(list_participants_result) > 2
 
             # Remove Participant
-            call_connection.remove_participant(CommunicationUserIdentifier(added_participant))
+            call_connection.remove_participant(CommunicationUserIdentifier(participant_to_add))
         except Exception as ex:
             print(str(ex))
         finally:
@@ -150,20 +150,20 @@ class CallConnectionTest(CommunicationTestCase):
                     alternate_caller_id=PhoneNumberIdentifier(self.from_phone_number)
                     )   
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
-            CallingServerLiveTestUtils.wait_for_operation_completion()
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
+            participant_to_add = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = call_connection.add_participant(
-                participant=CommunicationUserIdentifier(added_participant)
+                participant=CommunicationUserIdentifier(participant_to_add)
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)   
 
             CallingServerLiveTestUtils.wait_for_operation_completion()
             # Play Audio To Participant
             play_audio_to_participant_result = call_connection.play_audio_to_participant(
-             participant=CommunicationUserIdentifier(added_participant), 
+             participant= CommunicationUserIdentifier(participant_to_add), 
              audio_url = CONST.AUDIO_FILE_URL,
              is_looped=True,
              audio_file_id=str(uuid.uuid4()))    
@@ -173,12 +173,12 @@ class CallConnectionTest(CommunicationTestCase):
             CallingServerLiveTestUtils.wait_for_operation_completion()
             # Cancel Participant Media Operation 
             call_connection.cancel_participant_media_operation(
-                participant=CommunicationUserIdentifier(added_participant),
+                participant=CommunicationUserIdentifier(participant_to_add),
                 media_operation_id=play_audio_to_participant_result.operation_id
             )
 
             # Remove Participant
-            call_connection.remove_participant(CommunicationUserIdentifier(added_participant))
+            call_connection.remove_participant(CommunicationUserIdentifier(participant_to_add))
 
         except Exception as ex:
             print( str(ex))
@@ -197,34 +197,35 @@ class CallConnectionTest(CommunicationTestCase):
                     alternate_caller_id=PhoneNumberIdentifier(self.from_phone_number)
                     )   
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
            # Add Participant
-            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
+            participant_to_add = CallingServerLiveTestUtils.get_fixed_user_id()
             add_participant_result = call_connection.add_participant(
-                participant=CommunicationUserIdentifier(added_participant),
+                participant=CommunicationUserIdentifier(participant_to_add),
                 operation_context=OperationContext
                 )
             CallingServerLiveTestUtils.validate_add_participant(add_participant_result)
+            CallingServerLiveTestUtils.wait_for_operation_completion()
 
             # Mute Participant
-            call_connection.mute_participant(CommunicationUserIdentifier(added_participant))
+            call_connection.mute_participant(CommunicationUserIdentifier(participant_to_add))
 
             # Get Participant
-            muted_participant = call_connection.get_participant(CommunicationUserIdentifier(added_participant))
+            muted_participant = call_connection.get_participant(CommunicationUserIdentifier(participant_to_add))
             assert muted_participant.is_muted == True
 
             # Unmute Participant
-            call_connection.unmute_participant(CommunicationUserIdentifier(added_participant))
+            call_connection.unmute_participant(CommunicationUserIdentifier(participant_to_add))
 
             # Get Participant
-            unmuted_participant = call_connection.get_participant(CommunicationUserIdentifier(added_participant))
+            unmuted_participant = call_connection.get_participant(CommunicationUserIdentifier(participant_to_add))
             assert unmuted_participant.is_muted == False
            
             # Remove Participant
-            call_connection.remove_participant(CommunicationUserIdentifier(added_participant))
+            call_connection.remove_participant(CommunicationUserIdentifier(participant_to_add))
         except Exception as ex:
             print(ex)
         finally:
@@ -243,12 +244,12 @@ class CallConnectionTest(CommunicationTestCase):
                     ) 
 
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
-            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
-            participant=CommunicationUserIdentifier(added_participant)
+            participant_to_add = CallingServerLiveTestUtils.get_fixed_user_id()
+            participant=CommunicationUserIdentifier(participant_to_add)
             add_participant_result = call_connection.add_participant(
                 participant=participant,
                 operation_context=OperationContext
@@ -272,7 +273,6 @@ class CallConnectionTest(CommunicationTestCase):
             # Hang up
             call_connection.hang_up()
 
-    @pytest.mark.skip("Skip test as it is not working now")
     def test_transfer_to_call_scenario(self):
         # create option and establish a call
         call_connection = self.callingserver_client.create_call_connection(
@@ -284,6 +284,7 @@ class CallConnectionTest(CommunicationTestCase):
                     alternate_caller_id=PhoneNumberIdentifier(self.from_phone_number)
                     )   
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
             OperationContext = str(uuid.uuid4())
@@ -309,6 +310,7 @@ class CallConnectionTest(CommunicationTestCase):
                     alternate_caller_id=PhoneNumberIdentifier(self.from_phone_number)
                     )   
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
             OperationContext = str(uuid.uuid4())
@@ -323,6 +325,9 @@ class CallConnectionTest(CommunicationTestCase):
 
         except Exception as ex:
             print(str(ex))
+        finally:
+            # Hang up
+            call_connection.hang_up()  
 
     def test_create_delete_keep_alive_scenario(self):
         # Establish a call
@@ -336,6 +341,7 @@ class CallConnectionTest(CommunicationTestCase):
                     )   
 
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         # Check Keep Alive
         call_connection.keep_alive()
@@ -349,7 +355,6 @@ class CallConnectionTest(CommunicationTestCase):
         except Exception as ex:
             assert '8522' in str(ex)
 
-    @pytest.mark.skip("Skip test as it is not working now")
     def test_create_add_participant_audio_routing_scenario(self):
         # Establish a call
         call_connection = self.callingserver_client.create_call_connection(
@@ -362,15 +367,14 @@ class CallConnectionTest(CommunicationTestCase):
                     )   
 
         CallingServerLiveTestUtils.validate_callconnection(call_connection)
-
         CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
+            participant_to_add = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = call_connection.add_participant(
-                participant=CommunicationUserIdentifier(added_participant),
+                participant=CommunicationUserIdentifier(participant_to_add),
                 operation_context=OperationContext
                 )
 
@@ -379,7 +383,7 @@ class CallConnectionTest(CommunicationTestCase):
             CallingServerLiveTestUtils.wait_for_operation_completion()
             
             participants_list = [] 
-            participants_list.append(CommunicationUserIdentifier(added_participant))
+            participants_list.append(CommunicationUserIdentifier(participant_to_add))
             # Create Audio Routing Group 
             create_audio_routing_group_result = call_connection.create_audio_routing_group(audio_routing_mode=AudioRoutingMode.MULTICAST,
                     targets=participants_list)
@@ -391,10 +395,10 @@ class CallConnectionTest(CommunicationTestCase):
             # Get Audio Routing Group
             get_audio_routing_group_result = call_connection.list_audio_routing_groups(audioRoutingGroupId)
             assert get_audio_routing_group_result.audio_routing_mode == AudioRoutingMode.MULTICAST
-            assert get_audio_routing_group_result.targets[0].raw_id == added_participant
+            assert get_audio_routing_group_result.targets[0].raw_id == participant_to_add
 
             OperationContext = str(uuid.uuid4())
-            added_another_participant = CallingServerLiveTestUtils.get_another_fixed_user_id()
+            added_another_participant = CallingServerLiveTestUtils.get_fixed_user_id(CONST.USER_GUID_AUDIO_ROUTING)
             # Add Another Participant
             add_another_participant_result = call_connection.add_participant(
                 participant=CommunicationUserIdentifier(added_another_participant),
@@ -418,7 +422,7 @@ class CallConnectionTest(CommunicationTestCase):
             call_connection.delete_audio_routing_group(audioRoutingGroupId)
 
             # Remove Participant
-            call_connection.remove_participant(CommunicationUserIdentifier(added_participant))
+            call_connection.remove_participant(CommunicationUserIdentifier(participant_to_add))
         except Exception as ex:
             print( str(ex))
         finally:

@@ -15,7 +15,7 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Mon, 20 Dec 2021 10:49:28 GMT
+      - Tue, 21 Dec 2021 11:43:02 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -32,9 +32,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 10:49:26 GMT
+      - Tue, 21 Dec 2021 11:43:02 GMT
       ms-cv:
-      - 6CqbUR5wf0qIY3P/m0BZiQ.2.0
+      - UeqGOd81SUWQiRFrZlCXlw.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -62,7 +62,7 @@ interactions:
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
-      - Mon, 20 Dec 2021 10:49:29 GMT
+      - Tue, 21 Dec 2021 11:43:03 GMT
       x-ms-return-client-request-id:
       - 'true'
     method: POST
@@ -79,9 +79,9 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 10:49:28 GMT
+      - Tue, 21 Dec 2021 11:43:03 GMT
       ms-cv:
-      - Lrd8hNN8H0euxU6y9hkFEg.2.0
+      - w0QrBiaFEUOoydtN0uYMmQ.2.0
       request-context:
       - appId=
       strict-transport-security:
@@ -89,7 +89,7 @@ interactions:
       x-cache:
       - CONFIG_NOCACHE
       x-processing-time:
-      - 24ms
+      - 23ms
     status:
       code: 201
       message: Created
@@ -123,17 +123,17 @@ interactions:
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 10:49:30 GMT
+      - Tue, 21 Dec 2021 11:43:05 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 66772ac9-3c80-4eda-98f9-7996c6da13dc
+      - 1bfbcb55-0313-47ab-b23c-a4a381af9c88
     status:
       code: 201
       message: Created
 - request:
     body: '{"targetParticipant": {"communicationUser": "sanitized"}, "userToUserInformation":
-      "test information", "operationContext": "2619a9f9-7d10-4c41-ada8-f1fcb6d23c4f"}'
+      "test information", "operationContext": "3a18741a-b413-4095-bb02-11fda2490a09"}'
     headers:
       Accept:
       - application/json
@@ -153,20 +153,52 @@ interactions:
     uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:transferToParticipant?api-version=2021-11-15-preview
   response:
     body:
-      string: '{"error": {"code": "8501", "message": "Action is invalid when call
-        is not in Established state"}}'
+      string: '{"operationId": "c81f1300-ac13-4fd7-9cc2-9cd136a3bcd9", "status": "running",
+        "operationContext": "3a18741a-b413-4095-bb02-11fda2490a09"}'
     headers:
       content-length:
-      - '93'
+      - '131'
       content-type:
       - application/json; charset=utf-8
       date:
-      - Mon, 20 Dec 2021 10:49:30 GMT
+      - Tue, 21 Dec 2021 11:43:16 GMT
       x-cache:
       - CONFIG_NOCACHE
       x-microsoft-skype-chain-id:
-      - 66772ac9-3c80-4eda-98f9-7996c6da13dc
+      - 1bfbcb55-0313-47ab-b23c-a4a381af9c88
     status:
-      code: 400
-      message: Bad Request
+      code: 202
+      message: Accepted
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+      User-Agent:
+      - azsdk-python-communication-callingserver/1.0.0b1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
+      x-ms-host:
+      - acs-app-validations.communication.azure.com
+    method: POST
+    uri: https://sanitized.communication.azure.com/calling/callConnections/sanitized/:hangup?api-version=2021-11-15-preview
+  response:
+    body:
+      string: ''
+    headers:
+      content-length:
+      - '0'
+      date:
+      - Tue, 21 Dec 2021 11:43:16 GMT
+      x-cache:
+      - CONFIG_NOCACHE
+      x-microsoft-skype-chain-id:
+      - 1bfbcb55-0313-47ab-b23c-a4a381af9c88
+    status:
+      code: 202
+      message: Accepted
 version: 1

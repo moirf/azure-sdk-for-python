@@ -96,7 +96,6 @@ class ServerCallTest(CommunicationTestCase):
                 )
 
             CallingServerLiveTestUtils.validate_play_audio_result(play_audio_result)
-
             CallingServerLiveTestUtils.wait_for_operation_completion()
             # Cancel Prompt Audio
             CallingServerLiveTestUtils.cancel_all_media_operations_for_group_call(call_connections)
@@ -119,15 +118,15 @@ class ServerCallTest(CommunicationTestCase):
             )
 
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
-        try:
-            CallingServerLiveTestUtils.wait_for_operation_completion()
+        try:            
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
+            participant_to_add = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant           
             add_participant_result = self.callingserver_client.add_participant(
                 call_locator=GroupCallLocator(group_id),
-                participant=CommunicationUserIdentifier(added_participant),
+                participant=CommunicationUserIdentifier(participant_to_add),
                 callback_uri=CONST.AppCallbackUrl,
                 alternate_caller_id=None,
                 operation_context=OperationContext
@@ -138,7 +137,7 @@ class ServerCallTest(CommunicationTestCase):
             # Play Audio To Participant
             play_audio_to_participant_result = self.callingserver_client.play_audio_to_participant(
                 call_locator=GroupCallLocator(group_id),
-                participant=CommunicationUserIdentifier(added_participant), 
+                participant=CommunicationUserIdentifier(participant_to_add), 
                 audio_url = CONST.AUDIO_FILE_URL,
                 is_looped=True,
                 audio_file_id=str(uuid.uuid4()),
@@ -150,7 +149,7 @@ class ServerCallTest(CommunicationTestCase):
             # Cancel Participant Media Operation 
             self.callingserver_client.cancel_participant_media_operation(
                 call_locator=GroupCallLocator(group_id),
-                participant=CommunicationUserIdentifier(added_participant),
+                participant=CommunicationUserIdentifier(participant_to_add),
                 media_operation_id=play_audio_to_participant_result.operation_id
             )
 
@@ -158,7 +157,7 @@ class ServerCallTest(CommunicationTestCase):
             # Remove Participant
             self.callingserver_client.remove_participant(
                 GroupCallLocator(group_id),
-                CommunicationUserIdentifier(added_participant)
+                CommunicationUserIdentifier(participant_to_add)
                 )
 
         except Exception as ex:
@@ -180,20 +179,20 @@ class ServerCallTest(CommunicationTestCase):
             )
 
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
-
-        try:
-            CallingServerLiveTestUtils.wait_for_operation_completion()
+        CallingServerLiveTestUtils.wait_for_operation_completion()
+        
+        try:            
             # Get Call Connection
             get_call_connection = self.callingserver_client.get_call_connection(call_connections[0].call_connection_id)
             assert get_call_connection.call_connection_id is not None
             
             CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
+            participant_to_add = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = self.callingserver_client.add_participant(
                 call_locator=GroupCallLocator(group_id),
-                participant=CommunicationUserIdentifier(added_participant),
+                participant=CommunicationUserIdentifier(participant_to_add),
                 callback_uri=CONST.AppCallbackUrl,
                 alternate_caller_id=None,
                 operation_context=OperationContext
@@ -202,7 +201,7 @@ class ServerCallTest(CommunicationTestCase):
 
             CallingServerLiveTestUtils.wait_for_operation_completion()
             # Get Participant
-            get_participant_result = self.callingserver_client.get_participant(GroupCallLocator(group_id), CommunicationUserIdentifier(added_participant))
+            get_participant_result = self.callingserver_client.get_participant(GroupCallLocator(group_id), CommunicationUserIdentifier(participant_to_add))
             assert get_participant_result.participant_id is not None
 
             # Get all Participants
@@ -212,7 +211,7 @@ class ServerCallTest(CommunicationTestCase):
             # Remove Participant
             self.callingserver_client.remove_participant(
                 GroupCallLocator(group_id),
-                CommunicationUserIdentifier(added_participant)
+                CommunicationUserIdentifier(participant_to_add)
                 )
         except Exception as ex:
             print(str(ex))
@@ -300,9 +299,9 @@ class ServerCallTest(CommunicationTestCase):
             )
 
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
-            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
             # Play Audio
             play_audio_result = self.callingserver_client.play_audio(
@@ -327,7 +326,6 @@ class ServerCallTest(CommunicationTestCase):
             # Clean up/Hang up
             CallingServerLiveTestUtils.clean_up_connections(call_connections)
 
-    @pytest.mark.skip("Skip test as it is not working now")
     def test_create_add_answer_remove_hangup_scenario(self):
         group_id = CallingServerLiveTestUtils.get_group_id("test_create_add_answer_remove_hangup_scenario")
 
@@ -340,15 +338,15 @@ class ServerCallTest(CommunicationTestCase):
             )
 
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
-            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
+            participant_to_add = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = self.callingserver_client.add_participant(
                 call_locator=GroupCallLocator(group_id),
-                participant=CommunicationUserIdentifier(added_participant),
+                participant=CommunicationUserIdentifier(participant_to_add),
                 callback_uri=CONST.AppCallbackUrl,
                 alternate_caller_id=None,
                 operation_context=OperationContext
@@ -357,7 +355,7 @@ class ServerCallTest(CommunicationTestCase):
 
             CallingServerLiveTestUtils.wait_for_operation_completion()
             # Answer Call
-            answer_call_result = self.callingserver_client.answer_call(incoming_call_context="26fda345-3b5a-4159-b86b-260decaef2ac", callback_uri=CONST.AppCallbackUrl, 
+            answer_call_result = self.callingserver_client.answer_call(incoming_call_context=CONST.INCOMING_CALL_CONTEXT, callback_uri=CONST.AppCallbackUrl, 
             requested_media_types=[CallMediaType.AUDIO], requested_call_events=[CallingEventSubscriptionType.PARTICIPANTS_UPDATED])
             assert answer_call_result.call_connection_id is not None
 
@@ -365,7 +363,7 @@ class ServerCallTest(CommunicationTestCase):
             # Remove Participant
             self.callingserver_client.remove_participant(
                 GroupCallLocator(group_id),
-                CommunicationUserIdentifier(added_participant)
+                CommunicationUserIdentifier(participant_to_add)
                 )
         except Exception as ex:
             print(str(ex))
@@ -373,7 +371,6 @@ class ServerCallTest(CommunicationTestCase):
             # Clean up/Hang up
             CallingServerLiveTestUtils.clean_up_connections(call_connections)
 
-    @pytest.mark.skip("Skip test as it is not working now")
     def test_create_add_reject_hangup_scenario(self):
         group_id = CallingServerLiveTestUtils.get_group_id("test_create_add_reject_hangup_scenario")
 
@@ -386,15 +383,15 @@ class ServerCallTest(CommunicationTestCase):
             )
 
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
         try:
-            CallingServerLiveTestUtils.wait_for_operation_completion()
             OperationContext = str(uuid.uuid4())
-            added_participant = CallingServerLiveTestUtils.get_fixed_user_id()
+            participant_to_add = CallingServerLiveTestUtils.get_fixed_user_id()
             # Add Participant
             add_participant_result = self.callingserver_client.add_participant(
                 call_locator=GroupCallLocator(group_id),
-                participant=CommunicationUserIdentifier(added_participant),
+                participant=CommunicationUserIdentifier(participant_to_add),
                 callback_uri=CONST.AppCallbackUrl,
                 alternate_caller_id=None,
                 operation_context=OperationContext
@@ -403,14 +400,13 @@ class ServerCallTest(CommunicationTestCase):
 
             CallingServerLiveTestUtils.wait_for_operation_completion()
             # Reject Call
-            self.callingserver_client.reject_call(incoming_call_context="26fda345-3b5a-4159-b86b-260decaef2ac", call_reject_reason = CallRejectReason.NONE)
+            self.callingserver_client.reject_call(incoming_call_context=CONST.INCOMING_CALL_CONTEXT, call_reject_reason = CallRejectReason.NONE)
         except Exception as ex:
             print(str(ex))
         finally:
             # Clean up/Hang up
             CallingServerLiveTestUtils.clean_up_connections(call_connections)
 
-    @pytest.mark.skip("Skip test as it is not working now")
     def test_create_add_redirect_hangup_scenario(self):
         # create GroupCalls
         group_id = CallingServerLiveTestUtils.get_group_id("test_create_add_redirect_hangup_scenario")
@@ -424,12 +420,12 @@ class ServerCallTest(CommunicationTestCase):
             )
 
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
+        CallingServerLiveTestUtils.wait_for_operation_completion()
 
-        try:
-            CallingServerLiveTestUtils.wait_for_operation_completion()
+        try:            
             target_participant = CallingServerLiveTestUtils.get_fixed_user_id()
             # Redirect Call
-            self.callingserver_client.redirect_call(incoming_call_context="26fda345-3b5a-4159-b86b-260decaef2ac", participant=CommunicationUserIdentifier(target_participant))
+            self.callingserver_client.redirect_call(incoming_call_context=CONST.INCOMING_CALL_CONTEXT, participant=CommunicationUserIdentifier(target_participant))
         except Exception as ex:
             print(str(ex))
         finally:
