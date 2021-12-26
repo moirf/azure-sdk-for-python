@@ -19,8 +19,8 @@ from ._converters import (
     AudioRoutingGroupRequestConverter,
     MuteParticipantRequestConverter,
     UnmuteParticipantRequestConverter,
-    HoldMeetingAudioRequestConverter,
-    ResumeMeetingAudioRequestConverter,
+    RemoveFromDefaultAudioGroupRequestConverter,
+    AddToDefaultAudioGroupRequestConverter,
     UpdateAudioRoutingGroupRequestConverter
     )
 from ._generated.models import (
@@ -28,8 +28,8 @@ from ._generated.models import (
     CallConnectionProperties,
     PhoneNumberIdentifierModel,
     PlayAudioResult,
-    AudioRoutingGroupResult,
-    CreateAudioRoutingGroupResult,
+    AudioGroupResult,
+    CreateAudioGroupResult,
     TransferCallResult,
     CallParticipant,
     AudioRoutingMode
@@ -430,7 +430,7 @@ class CallConnection(object):
         :raises: ~azure.core.exceptions.HttpResponseError
 
         """
-        hold_meeting_audio_request = HoldMeetingAudioRequestConverter.convert(
+        hold_meeting_audio_request = RemoveFromDefaultAudioGroupRequestConverter.convert(
             identifier=serialize_identifier(participant)
             )
 
@@ -456,7 +456,7 @@ class CallConnection(object):
         :raises: ~azure.core.exceptions.HttpResponseError
 
         """
-        resume_participant_meeting_audio_request = ResumeMeetingAudioRequestConverter.convert(
+        resume_participant_meeting_audio_request = AddToDefaultAudioGroupRequestConverter.convert(
             identifier=serialize_identifier(participant)
             )
 
@@ -547,7 +547,7 @@ class CallConnection(object):
             audio_routing_mode,  # type: AudioRoutingMode
             targets, # type: List[CommunicationIdentifier]
             **kwargs  # type: Any
-        ):  # type: (...) -> CreateAudioRoutingGroupResult
+        ):  # type: (...) -> CreateAudioGroupResult
         """Create audio routing group in a call.
 
         :param audio_routing_mode: Required. The audio routing mode. Possible values include:
@@ -556,8 +556,8 @@ class CallConnection(object):
         :param targets: Required. The target identities that would be receivers in the audio routing
          group.
         :type targets: list[~azure.communication.callingserver.models.CommunicationIdentifier]
-        :return: CreateAudioRoutingGroupResult
-        :rtype: ~azure.communication.callingserver.models.CreateAudioRoutingGroupResult
+        :return: CreateAudioGroupResult
+        :rtype: ~azure.communication.callingserver.models.CreateAudioGroupResult
         :raises: ~azure.core.exceptions.HttpResponseError
 
         """
@@ -577,13 +577,13 @@ class CallConnection(object):
             self,
             audio_routing_group_id,  # type: str
             **kwargs  # type: Any
-        ):  # type: (...) -> AudioRoutingGroupResult
+        ):  # type: (...) -> AudioGroupResult
         """List audio routing groups in a call.
 
         :param audio_routing_group_id: Required. The audio routing group id.
         :type audio_routing_group_id: str
-        :return: AudioRoutingGroupResult
-        :rtype: ~azure.communication.callingserver.models.AudioRoutingGroupResult
+        :return: AudioGroupResult
+        :rtype: ~azure.communication.callingserver.models.AudioGroupResult
         :raises: ~azure.core.exceptions.HttpResponseError
 
         """

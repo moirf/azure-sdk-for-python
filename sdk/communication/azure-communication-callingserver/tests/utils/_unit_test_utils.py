@@ -25,8 +25,8 @@ from azure.communication.callingserver import (
     ServerCallLocator,
     CallingOperationStatus,
     AnswerCallResult,
-    AudioRoutingGroupResult,
-    CreateAudioRoutingGroupResult,
+    AudioGroupResult,
+    CreateAudioGroupResult,
     CallRejectReason,
     CallParticipant,
     TransferCallResult
@@ -968,12 +968,12 @@ class CallConnectionUnitTestUtils:
 
     @staticmethod
     def verify_create_audio_routing_group(result):
-        # type: (CreateAudioRoutingGroupResult) -> None
+        # type: (CreateAudioGroupResult) -> None
             assert result.audio_routing_group_id == _test_constants.AUDIO_ROUTING_GROUP_ID
 
     @staticmethod
     def verify_get_audio_routing_group(result):
-        # type: (AudioRoutingGroupResult) -> None
+        # type: (AudioGroupResult) -> None
         target_identifier_01 = deserialize_identifier(result.targets[0])
         assert result.audio_routing_mode == AudioRoutingMode.ONE_TO_ONE
         assert _test_constants.RESOURCE_SOURCE == target_identifier_01.properties['id']

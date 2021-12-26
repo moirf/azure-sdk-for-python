@@ -24,7 +24,7 @@ from azure.communication.callingserver import (
     CallingEventSubscriptionType,
     GroupCallLocator,
     TransferCallResult,
-    CreateAudioRoutingGroupResult
+    CreateAudioGroupResult
     )
 
 class RequestReplacerProcessor(RecordingProcessor):
@@ -80,7 +80,7 @@ class CallingServerLiveTestUtils:
 
     @staticmethod
     def validate_create_audio_routing_group(create_audio_routing_group_result):
-        # type: (CreateAudioRoutingGroupResult) -> None
+        # type: (CreateAudioGroupResult) -> None
         assert create_audio_routing_group_result is not None
         assert create_audio_routing_group_result.audio_routing_group_id is not None
 
