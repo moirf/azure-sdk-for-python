@@ -208,7 +208,7 @@ TransferResultPayload = {
 AUDIO_URL = "https://bot.contoso.io/audio/sample-message.wav"
 AUDIO_FILE_ID = "sampleAudioFileId"
 CreateAudioRoutingGroupResponsePayload = {
-    "audioRoutingGroupId": AUDIO_GROUP_ID,
+    "audioGroupId": AUDIO_GROUP_ID,
     }
 
 # GetAudioRoutingGroupPayload
