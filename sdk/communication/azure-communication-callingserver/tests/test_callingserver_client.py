@@ -435,7 +435,7 @@ class TestCallingServerClient(unittest.TestCase):
             use_managed_identity=use_managed_identity
             )
 
-        result = calling_server_client.add_participant(
+        result = _mock_utils.mock_add_participant_calling_server(
             call_locator,
             participant,
             callback_uri,

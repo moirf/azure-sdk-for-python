@@ -361,7 +361,7 @@ class TestCallConnection(unittest.TestCase):
             use_managed_identity=use_managed_identity
             )
 
-        result = call_connection.add_participant(
+        result = _mock_utils.mock_add_participant(
             participant,
             alternate_caller_id = alternate_caller_id,
             operation_context = operation_context
@@ -671,8 +671,8 @@ class TestCallConnection(unittest.TestCase):
             raised = True
         assert raised == True
 
-    @parameterized.expand(CallConnectionUnitTestUtils.data_source_test_hold_participant_meeting_audio())
-    def test_hold_participant_meeting_audio(
+    @parameterized.expand(CallConnectionUnitTestUtils.data_source_test_remove_from_default_audio_group())
+    def test_remove_from_default_audio_group(
         self,
         test_name, # type: str
         call_connection_id, # type: str
@@ -687,13 +687,13 @@ class TestCallConnection(unittest.TestCase):
             use_managed_identity=use_managed_identity
             )
 
-        call_connection.hold_participant_meeting_audio(
+        call_connection.remove_from_default_audio_group(
             participant = participant
             )
         assert call_connection.call_connection_id == _test_constants.CALL_ID
 
-    @parameterized.expand(CallConnectionUnitTestUtils.data_source_test_hold_participant_meeting_audio())
-    def test_hold_participant_meeting_audio_failed(
+    @parameterized.expand(CallConnectionUnitTestUtils.data_source_test_remove_from_default_audio_group())
+    def test_remove_from_default_audio_group_failed(
         self,
         test_name, # type: str
         call_connection_id, # type: str
@@ -710,15 +710,15 @@ class TestCallConnection(unittest.TestCase):
 
         raised = False
         try:
-            call_connection.hold_participant_meeting_audio(
+            call_connection.remove_from_default_audio_group(
                 participant = participant
                 )
         except:
             raised = True
         assert raised == True
 
-    @parameterized.expand(CallConnectionUnitTestUtils.data_source_test_resume_participant_meeting_audio())
-    def test_resume_participant_meeting_audio(
+    @parameterized.expand(CallConnectionUnitTestUtils.data_source_test_add_to_default_audio_group())
+    def test_add_to_default_audio_group(
         self,
         test_name, # type: str
         call_connection_id, # type: str
@@ -733,13 +733,13 @@ class TestCallConnection(unittest.TestCase):
             use_managed_identity=use_managed_identity
             )
 
-        call_connection.resume_participant_meeting_audio(
+        call_connection.add_to_default_audio_group(
             participant = participant
             )
         assert call_connection.call_connection_id == _test_constants.CALL_ID
 
-    @parameterized.expand(CallConnectionUnitTestUtils.data_source_test_resume_participant_meeting_audio())
-    def test_resume_participant_meeting_audio_failed(
+    @parameterized.expand(CallConnectionUnitTestUtils.data_source_test_add_to_default_audio_group())
+    def test_add_to_default_audio_group_failed(
         self,
         test_name, # type: str
         call_connection_id, # type: str
@@ -756,7 +756,7 @@ class TestCallConnection(unittest.TestCase):
 
         raised = False
         try:
-            call_connection.resume_participant_meeting_audio(
+            call_connection.add_to_default_audio_group(
                 participant = participant
                 )
         except:
@@ -989,10 +989,10 @@ class TestCallConnection(unittest.TestCase):
             use_managed_identity=use_managed_identity
             )
 
-        call_connection.delete_audio_group(
+        result = _mock_utils.mock_delete_audio_group(
             audio_group_id = audio_group_id
             )
-        assert call_connection.call_connection_id == _test_constants.CALL_ID
+        assert result.status_code == 202
 
     @parameterized.expand(CallConnectionUnitTestUtils.data_source_test_delete_audio_group())
     def test_delete_audio_group_failed(
