@@ -636,7 +636,7 @@ class CallConnection:
 
         :param audio_group_id: Required. The audio group id.
         :type audio_group_id: str
-        :param targets: Required. The target identities that would be receivers in the audio 
+        :param targets: Required. The target identities that would be receivers in the audio
          group.
         :type targets: list[~azure.communication.callingserver.models.CommunicationIdentifier]
         :return: None
