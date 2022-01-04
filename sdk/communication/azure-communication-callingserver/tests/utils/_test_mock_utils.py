@@ -54,14 +54,7 @@ def _mock_response(status_code=200, headers=None, json_payload=None):
         response.content_type = "text/plain"
     return response
 
-def mock_add_participant_calling_server( call_locator, participant, callback_uri, alternate_caller_id, operation_context):
-    response = Mock(operation_id=_test_constants.OPERATION_ID, status=CallingOperationStatus.RUNNING, operation_context=operation_context)
-    return response
 
-def mock_add_participant( participant, alternate_caller_id, operation_context):
-    response = Mock(operation_id=_test_constants.OPERATION_ID, status=CallingOperationStatus.RUNNING, operation_context=operation_context)
-    return response
- 
 def mock_delete_audio_group(audio_group_id):
      response = Mock(status_code= 202)
      return response

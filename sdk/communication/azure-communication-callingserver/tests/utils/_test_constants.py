@@ -189,7 +189,10 @@ PlayAudioResponsePayload = {
 
 # AddParticipantPayload
 AddParticipantResultPayload = {
-    "participantId": PARTICIPANT_ID_01
+    "participantId": PARTICIPANT_ID_01,
+    "operationId": OPERATION_ID,
+    "status": "running",
+    "operationContext": OPERATION_CONTEXT,
     }
 
 # TransferPayload

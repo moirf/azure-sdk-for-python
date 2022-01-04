@@ -295,7 +295,7 @@ async def test_add_participant_succeed(
         use_managed_identity=use_managed_identity
         )
 
-    result = await _mock_utils_async.mock_add_participant_call_connection(
+    result = await call_connection.add_participant(
         participant,
         alternate_caller_id = alternate_caller_id,
         operation_context = operation_context

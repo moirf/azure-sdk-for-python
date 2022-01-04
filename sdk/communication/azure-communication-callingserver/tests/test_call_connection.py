@@ -361,7 +361,7 @@ class TestCallConnection(unittest.TestCase):
             use_managed_identity=use_managed_identity
             )
 
-        result = _mock_utils.mock_add_participant(
+        result = call_connection.add_participant(
             participant,
             alternate_caller_id = alternate_caller_id,
             operation_context = operation_context

@@ -433,7 +433,7 @@ async def test_add_participant_succeed(
         use_managed_identity=use_managed_identity
         )
 
-    result = await _mock_utils_async.mock_add_participant(
+    result = await calling_server_client.add_participant(
         call_locator,
         participant,
         callback_uri,
