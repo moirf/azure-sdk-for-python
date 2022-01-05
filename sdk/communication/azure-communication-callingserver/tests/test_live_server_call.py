@@ -39,11 +39,14 @@ class ServerCallTest(CommunicationTestCase):
         if self.is_playback():
             self.from_phone_number = "+15551234567"
             self.to_phone_number = "+15551234567"
+            self.invalid_server_call_id = "aHR0cHM6Ly9XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
             self.recording_processors.extend([
                 BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId", "callConnectionId", "phoneNumber", "groupCallId", "recordingId", "serverCallId"])])
         else:
             self.to_phone_number = os.getenv("AZURE_PHONE_NUMBER")
             self.from_phone_number = os.getenv("ALTERNATE_CALLERID")
+            self.invalid_server_call_id = os.getenv("INVALID_SERVER_CALL_ID")
+            self.participant_guid = os.getenv("PARTICIPANT_GUID")
             self.recording_processors.extend([
                 BodyReplacerProcessor(keys=["alternateCallerId", "targets", "source", "callbackUri", "identity", "communicationUser", "rawId", "callConnectionId", "phoneNumber", "groupCallId", "recordingId", "serverCallId"]),
                 BodyReplacerProcessor(keys=["audioFileUri"], replacement = "https://dummy.ngrok.io/audio/sample-message.wav"),
@@ -119,7 +122,6 @@ class ServerCallTest(CommunicationTestCase):
 
         CallingServerLiveTestUtils.validate_group_call_connection(call_connections)
         CallingServerLiveTestUtils.wait_for_operation_completion()
-
         try:            
             OperationContext = str(uuid.uuid4())
             participant_to_add = CallingServerLiveTestUtils.get_fixed_user_id()
@@ -159,7 +161,6 @@ class ServerCallTest(CommunicationTestCase):
                 GroupCallLocator(group_id),
                 CommunicationUserIdentifier(participant_to_add)
                 )
-
         except Exception as ex:
             print(str(ex))
         finally:

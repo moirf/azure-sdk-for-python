@@ -12,6 +12,8 @@ interactions:
       - '2'
       Content-Type:
       - application/json
+      Date:
+      - Fri, 10 Dec 2021 10:03:23 GMT
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
@@ -59,6 +61,8 @@ interactions:
       - '2'
       Content-Type:
       - application/json
+      Date:
+      - Fri, 10 Dec 2021 10:03:25 GMT
       User-Agent:
       - azsdk-python-communication-identity/1.0.1 Python/3.10.0 (Windows-10-10.0.22000-SP0)
       x-ms-date:
